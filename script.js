@@ -31,7 +31,7 @@ const 展示 = [
         icon: 'https://static.codemao.cn/coco/player/unstable/H1AJn1lbR.image/png?hash=FngWqISkQLOOa0ux7SVkkB7ftQDF',
         name: '百度地图10.0',
         link: 'https://wwb.lanzouo.com/iLIdI1vhlnfe',
-        pwd: 'io6s',
+        pwd: '1o6s',
         简介: '【安卓App】百度地图10.0小米定制版提取版，无广告，最简洁  ',
         图片一: 'https://static.codemao.cn/coco/player/unstable/HyR2oJx-R.image/png?hash=FvLlf6hqXeUVJfZVZKZt_pQah-Og',
         图片二: 'https://static.codemao.cn/coco/player/unstable/Skd0sJxbA.image/jpeg?hash=FkVhHa0hhTCM3VS5uftjbwLUk3Fq'
