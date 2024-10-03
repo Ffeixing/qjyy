@@ -3,29 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>应用详情</title>
-    <link rel="stylesheet" href="style.css">
+    <title>App Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #iconImg {
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+        }
+        #appName {
+            font-size: 24px;
+            margin-left: 10px;
+        }
+        #downloadButton {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px; /* 圆角矩形 */
+            cursor: pointer;
+        }
+        #downloadButton:hover {
+            background-color: #45a049;
+        }
+        #img1, #img2 {
+            width: auto;
+            height: 200px; /* 9:16 比例 */
+            margin: 10px;
+        }
+        #description {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- 图标和名称左右排放 -->
-        <div class="app-details">
-            <img id="appIcon" src="" alt="应用图标">
-            <h1 id="appName">应用名称</h1>
-        </div>
-
-        <!-- 下载按钮 -->
-        <a id="downloadLink" href="#" class="download-button">下载</a>
-
-        <!-- 左右排放的两张图片，比例为 9:16 -->
-        <div class="app-images">
-            <img id="imageOne" src="" alt="图片一">
-            <img id="imageTwo" src="" alt="图片二">
-        </div>
-
-        <!-- 简介文本 -->
-        <div id="appDescription" class="app-description"></div>
+    <div>
+        <img id="iconImg" src="" alt="App Icon">
+        <span id="appName"></span>
     </div>
+
+    <div style="margin-top: 20px;">
+        <button id="downloadButton">下载</button>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <img id="img1" src="" alt="Image 1">
+        <img id="img2" src="" alt="Image 2">
+    </div>
+
+    <div id="description"></div>
 
     <script src="app.js"></script>
 </body>

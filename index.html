@@ -20,9 +20,84 @@
     <!-- 可滚动列表 -->
     <div id="appList" class="scrollable-list">
         <!-- 列表项由JS生成 -->
-    </div>Copyright © 2024 趣味加倍. All Rights Reserved
-		<div>
+    </div>
 
+    <!-- jQuery 和其他外部脚本 -->
+    <!-- jquery-2.2.4.min.js 可替换成其他链接的jq文件，导入一次即可 -->
+    <script src="//static2.pgaot.com/Assets/js/jquery-2.2.4.min.js"></script>
+
+    <!-- PGAoT的请求的签名方式，导入一次即可 -->
+    <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script>
+
+    <!-- 数据表JavaScript(支持jquery环境)核心处理逻辑类，导入一次即可 -->
+    <script src="//static2.pgaot.com/Assets/js.class/pgdbs.class.js"></script>
+
+    <!-- pgdbsUser_<数据表ID>.js 自己生成的JS用户配置类 -->
+    <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.14473b2a64a496b156686ae453162cfe329e2bbaabbb5da81bdca6b0dcdde4ea.js"></script>
+
+    <!-- 实例化和表数据获取逻辑 -->
+<script>
+    // 实例化
+    var table1 = new pgdbs(dbs_14473b2a64a496b156686ae453162cfe329e2bbaabbb5da81bdca6b0dcdde4ea);
+
+    // 设置数据成功回调函数
+    table1.onGetData((json, id, url) => {
+        // 清空列表“展示”
+        展示.length = 0;
+
+        // 获取json中键“fields”的长度，并遍历插入数据
+        var fields = json.fields;
+
+        for (let i = 0; i < fields.length; i++) {
+            // 获取图片字段并分割为列表
+            let 图片列表 = fields[i]['图片'].split(',');
+
+            // 插入一行字典格式数据到“展示”
+            展示.push({
+                icon: fields[i]['图标'],
+                name: fields[i]['名称'],
+                link: fields[i]['下载链接'],
+                pwd: fields[i]['密码'],
+                图片一: 图片列表[0] || '', // 获取图片列表中的第一项
+                图片二: 图片列表[1] || ''  // 获取图片列表中的第二项，如果没有则为空
+            });
+        }
+
+        // 此处可以添加代码以更新页面展示数据
+        updateDisplay();
+    });
+
+    // 调用获取数据表方法，将结果返回到自定义的成功回调函数
+    table1.getTableData({page: 1, limit: 999, id: 'getTableData'});
+
+    // 更新页面展示的函数
+    function updateDisplay() {
+        // 根据更新的展示列表重新渲染页面数据
+        let listContainer = document.getElementById('appList');
+        listContainer.innerHTML = ''; // 清空现有内容
+
+        展示.forEach(item => {
+            // 创建并添加每个项目
+            let listItem = document.createElement('div');
+            listItem.className = 'app-item';
+            listItem.innerHTML = `
+                <img src="${item.icon}" alt="${item.name}" class="app-icon">
+                <div class="app-info">
+                    <h3>${item.name}</h3>
+                </div>
+            `;
+
+            listItem.onclick = function() {
+                // 切换到app.html并传递该行数据
+                window.location.href = `app.html?icon=${encodeURIComponent(item.icon)}&name=${encodeURIComponent(item.name)}&link=${encodeURIComponent(item.link)}&pwd=${encodeURIComponent(item.pwd)}&图片一=${encodeURIComponent(item.图片一)}&图片二=${encodeURIComponent(item.图片二)}`;
+            };
+
+            listContainer.appendChild(listItem);
+        });
+    }
+</script>
+
+    <!-- 应用数据处理的 JS 脚本 -->
     <script src="script.js"></script>
 </body>
 </html>
