@@ -7,6 +7,7 @@ window.onload = function() {
     const img1 = urlParams.get('图片一');
     const img2 = urlParams.get('图片二');
     const description = urlParams.get('简介');
+    let finalDownloadUrl = urlParams.get('link'); // 默认使用传入的下载链接//F飞行乱价的
 
     // 设置图标、名称、图片和简介
     document.getElementById('iconImg').src = appIcon;
