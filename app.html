@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Details</title>
+    <title>趣加应用详情页面</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,6 +42,41 @@
     </style>
 </head>
 <body>
+<script>
+    // 获取 URL 参数
+    function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            icon: params.get('icon'),
+            name: params.get('name'),
+            link: params.get('link'),
+            pwd: params.get('pwd'),
+            图片一: params.get('图片一'),
+            图片二: params.get('图片二'),
+            简介: params.get('简介') // 接收简介参数
+        };
+    }
+
+    // 渲染页面数据
+    function renderAppData() {
+        const appData = getQueryParams();
+
+        // 更新页面元素
+        document.getElementById('app-icon').src = appData.icon;
+        document.getElementById('app-name').innerText = appData.name;
+        document.getElementById('app-link').href = appData.link;
+        document.getElementById('app-pwd').innerText = `密码: ${appData.pwd || '无'}`;
+        document.getElementById('app-img1').src = appData.图片一 || '';
+        document.getElementById('app-img2').src = appData.图片二 || '';
+        document.getElementById('app-description').innerText = appData.简介 || '暂无简介'; // 显示简介
+    }
+
+    // 页面加载后执行
+    window.onload = renderAppData;
+</script>
+
+<!-- 页面内容 -->
+
     <div>
         <img id="iconImg" src="" alt="App Icon">
         <span id="appName"></span>

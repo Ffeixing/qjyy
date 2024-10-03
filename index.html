@@ -52,23 +52,24 @@
             // 获取图片字段并分割为列表
             let 图片列表 = fields[i]['图片'].split(',');
 
-            // 插入一行字典格式数据到“展示”
+            // 插入一行字典格式数据到“展示”，包括简介
             展示.push({
                 icon: fields[i]['图标'],
                 name: fields[i]['名称'],
                 link: fields[i]['下载链接'],
                 pwd: fields[i]['密码'],
+                简介: fields[i]['简介'], // 新增简介字段
                 图片一: 图片列表[0] || '', // 获取图片列表中的第一项
                 图片二: 图片列表[1] || ''  // 获取图片列表中的第二项，如果没有则为空
             });
         }
 
-        // 此处可以添加代码以更新页面展示数据
+        // 更新页面展示数据
         updateDisplay();
     });
 
     // 调用获取数据表方法，将结果返回到自定义的成功回调函数
-    table1.getTableData({page: 1, limit: 999, id: 'getTableData'});
+    table1.getTableData({page: 1, limit: 30, id: 'getTableData'});
 
     // 更新页面展示的函数
     function updateDisplay() {
@@ -88,8 +89,8 @@
             `;
 
             listItem.onclick = function() {
-                // 切换到app.html并传递该行数据
-                window.location.href = `app.html?icon=${encodeURIComponent(item.icon)}&name=${encodeURIComponent(item.name)}&link=${encodeURIComponent(item.link)}&pwd=${encodeURIComponent(item.pwd)}&图片一=${encodeURIComponent(item.图片一)}&图片二=${encodeURIComponent(item.图片二)}`;
+                // 切换到app.html并传递该行数据，包括简介
+                window.location.href = `app.html?icon=${encodeURIComponent(item.icon)}&name=${encodeURIComponent(item.name)}&link=${encodeURIComponent(item.link)}&pwd=${encodeURIComponent(item.pwd)}&图片一=${encodeURIComponent(item.图片一)}&图片二=${encodeURIComponent(item.图片二)}&简介=${encodeURIComponent(item.简介)}`;
             };
 
             listContainer.appendChild(listItem);
