@@ -13,7 +13,7 @@ window.onload = function() {
     document.getElementById('appName').innerText = appName;
     document.getElementById('img1').src = img1;
     document.getElementById('img2').src = img2;
-    document.getElementById('description').innerText = description;
+    document.getElementById('description').innerText = downloadLink;
 
     let finalDownloadUrl = downloadLink; // 默认使用传入的下载链接
 
