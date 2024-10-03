@@ -38,6 +38,6 @@ window.onload = function() {
 
     // 点击下载按钮时打开链接
     document.getElementById('downloadButton').addEventListener('click', function() {
-        window.open(finalDownloadUrl, '_blank'); // 新窗口打开下载链接
+        window.open(finalDownloadUrl); // 新窗口打开下载链接
     });
 };
