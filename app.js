@@ -18,7 +18,7 @@ window.onload = function() {
     let finalDownloadUrl = downloadLink; // 默认使用传入的下载链接
 
     // 解析蓝奏云或123盘的下载链接
-    if (downloadLink.includes('lanzou')) {
+    if (downloadLink.includes('lan')) {
         fetch(`https://api.pearktrue.cn/api/lanzou/api.php?url=${downloadLink}&pwd=${password}`)
             .then(response => response.json())
             .then(data => {
