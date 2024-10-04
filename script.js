@@ -1,22 +1,3 @@
- /* 确保图片始终位于底部 */
-        .footer-link {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            background-color: white;
-        }
-
-        .footer-link img {
-            max-width: 100%;
-            height: auto;
-        }
-
-
-
-
-
 
 
 // 模拟的展示数据，每一项为字典，包含图标、名称、下载链接、密码、简介、图片一和图片二
