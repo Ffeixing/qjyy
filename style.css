@@ -1,3 +1,21 @@
+        /* 确保图片始终位于底部 */
+        .footer-link {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            background-color: white;
+        }
+
+        .footer-link img {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+
+
 /* 通用样式 */
 body {
     font-family: Arial, sans-serif;
