@@ -1,3 +1,21 @@
+// 监测 User Agent 并执行特定操作
+if (navigator.userAgent.indexOf('Windows') !== -1 || navigator.userAgent.indexOf('Macintosh') !== -1) {
+    // 如果检测到是桌面设备，执行以下操作
+   
+    console.log('检测到桌面设备');
+} else {
+    // 非桌面设备隐藏按钮
+    document.getElementByClassName('footer-link').style.display = 'none';
+}
+
+
+
+
+
+
+
+
+
 // 模拟的展示数据，每一项为字典，包含图标、名称、下载链接、密码、简介、图片一和图片二
 const 展示 = [
     {
@@ -185,3 +203,7 @@ document.getElementById('searchInput').addEventListener('input', function(e) {
 
 // 初始化时显示所有应用
 initAppList();
+
+
+
+

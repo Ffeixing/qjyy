@@ -1,3 +1,55 @@
+.image-button {
+            position: absolute;
+            top: 10px;    /* 距离页面顶部 10px */
+            right: 10px;  /* 距离页面右侧 10px */
+            width: 35px;  /* 宽度设置为 20px */
+            height: 35px; /* 高度设置为 20px */
+            background: url('https://static.codemao.cn/pickduck/ryp6_ndk1x.png?hash=Fk9qGrnGwoeQRSFA-5FhwNcqLXYE') no-repeat center center; /* 图片地址 */
+            background-size: cover;  /* 确保图片充满按钮区域 */
+            cursor: pointer; /* 鼠标悬停时显示手型 */
+            border: none;    /* 移除默认边框 */
+        }
+
+
+   
+.image-login {
+            position: absolute;
+            top: 10px;    /* 距离页面顶部 10px */
+            left: 10px;  /* 距离页面右侧 10px */
+            width: 35px;  /* 宽度设置为 20px */
+            height: 35px; /* 高度设置为 20px */
+            background: url('https://static.bcmcdn.com/coco/player/unstable/Sk2GvtpAA.image/png?hash=Fm0eBYJnS8OAN3URenwARJ2RKho8') no-repeat center center; /* 图片地址 */
+            background-size: cover;  /* 确保图片充满按钮区域 */
+            cursor: pointer; /* 鼠标悬停时显示手型 */
+            border: none;    /* 移除默认边框 */
+        }
+
+
+
+
+
+        .image-button:hover {
+            opacity: 0.8; /* 鼠标悬停时图片稍微变透明 */
+        }
+
+
+        button {
+            display: inline-block;
+            margin: 0 5px; /* 控制按钮之间的间距 */
+            padding: 10px 20px;
+				color:white;
+				border-radius:10px;
+				background-color:#8CB7F4;
+        }
+
+
+
+
+
+
+
+
+
         /* 确保图片始终位于底部 */
         .footer-link {
             position: fixed;
