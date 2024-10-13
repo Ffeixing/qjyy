@@ -1,12 +1,3 @@
-// 监测 User Agent 并执行特定操作
-if (navigator.userAgent.indexOf('Windows') !== -1 || navigator.userAgent.indexOf('Macintosh') !== -1) {
-    // 如果检测到是桌面设备，执行以下操作
-   
-    console.log('检测到桌面设备');
-} else {
-    // 非桌面设备隐藏按钮
-    document.getElementByClassName('footer-link').style.display = 'none';
-}
 
 
 
