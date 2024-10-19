@@ -1,0 +1,65 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+
+/* 头图样式 */
+.header-image img {
+    width: 100vw; /* 图片宽度适应屏幕 */
+    height: auto; /* 高度根据宽度自动调整 */
+    display: block;
+}
+
+/* 登录容器样式 */
+.login-container {
+    width: 90%;
+    max-width: 400px; /* 设置最大宽度，适配手机端 */
+    margin-top: 20px;
+}
+
+/* 输入框样式 */
+.input-field {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 25px; /* 圆角 */
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    outline: none;
+}
+
+.input-field:focus {
+    border-color: #4CAF50; /* 聚焦时边框颜色变化 */
+}
+
+/* 登录按钮样式 */
+.login-button {
+    width: 100%;
+    padding: 15px;
+    border-radius: 25px; /* 圆角按钮 */
+    border: none;
+    background-color: #4CAF50; /* 按钮背景色 */
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 按钮阴影 */
+}
+
+.login-button:hover {
+    background-color: #45a049; /* 悬停时按钮颜色变化 */
+}

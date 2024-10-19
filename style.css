@@ -1,3 +1,54 @@
+
+
+
+
+/* 设置按钮容器的样式 */
+.button-slider {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 90%;
+  height: 50px; /* 和搜索框高度一致 */
+  overflow-x: auto; /* 横向滚动 */
+  overflow-y: hidden; /* 禁止纵向滚动 */
+  white-space: nowrap; /* 禁止按钮换行 */
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 设置按钮的样式 */
+.button-slider button {
+  flex: 0 0 auto; /* 使按钮保持固定宽度 */
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: blve; /* 按钮背景颜色 */
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-slider button:hover {
+  background-color: #45a049; /* 按钮悬停时的背景颜色 */
+}
+
+/* 隐藏滚动条 */
+.button-slider::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
 .image-button {
             position: absolute;
             top: 10px;    /* 距离页面顶部 10px */
