@@ -63,8 +63,40 @@
 
 
 
-<div>Copyright © 2024 趣味加倍科技. All Rights Reserved</div>
+<script>
+        // 检查 cookie 中是否有邮箱数据
+        window.onload = function() {
+            var email = getCookie('email');
+            var avatar = getCookie('avatar'); // 假设头像 URL 存储在 cookie 中，键为 avatar
 
+            if (email) {
+                // 如果有数据，改变右上角 class 为 image-button 的 a 标签图标为 cookie 中的头像
+                document.querySelector('.image-button').style.backgroundImage = `url(${avatar})`;
+            }
+
+            // 当右上角 class 为 image-button 的 a 标签被点击时
+            document.querySelector('.image-button').onclick = function(event) {
+                if (email) {
+                    // 如果 cookie 中有邮箱数据，显示提示
+                    event.preventDefault();
+                    alert("当前账号已登录，网页端个人主页还在开发中，请先下载App");
+                } else {
+                    // 否则跳转至 login.html
+                    window.location.href = "login.html";
+                }
+            };
+        };
+
+        // 获取 cookie 的辅助函数
+        function getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+
+
+
+</script>
 
     
     <!-- jQuery 和其他外部脚本 -->
@@ -199,6 +231,8 @@ document.getElementById('tools').addEventListener('click', function() {
 
 </script>
 
+
+<div>Copyright © 2024 趣味加倍科技. All Rights Reserved</div>
     <!-- 应用数据处理的 JS 脚本 -->
     <script src="script.js"></script>
 </body>
