@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合集页面</title>
+    <style>
+        /* CSS 样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #0073e6;
+            color: white;
+        }
+
+        .banner {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+        }
+
+        .category {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .category span {
+            font-weight: bold;
+            color: #0073e6;
+        }
+
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+        }
+
+        .article-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            color: black;
+            cursor: pointer;
+        }
+
+        .article-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .article-info h2 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .date, .views {
+            font-size: 12px;
+            color: #777;
+        }
+
+        /* 隐藏文章内容部分 */
+        #article {
+            display: none;
+            padding: 20px;
+        }
+
+        #article h1 {
+            font-size: 22px;
+            color: #0073e6;
+            margin-bottom: 10px;
+        }
+
+        #article .date {
+            font-size: 12px;
+            color: #777;
+        }
+
+        #article .content {
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        #article .content img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        #back-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://static.codemao.cn/pickduck/rkTUE7x71l.png?hash=FqieR_WVdDpclRxBjEZQmaN9STKB" alt="横幅" class="banner">
+        <h1>影视音乐类合集</h1>
+    </div>
+    
+    <div class="category">
+        <span>全部</span>
+        <span>最热</span>
+    </div>
+  
+
+
+
+
+
+
+
+    <div class="article-list">
+        <div class="article-item" onclick="showArticle(1)">
+            <img src="https://static.codemao.cn/pickduck/rk2T0mg7yx.jpeg?hash=Fv4YGZWqeiOKtc51TbR2rBi0Z3a9" alt="文章图片" class="article-image">
+            <div class="article-info">
+
+                <h2><a href="https://tools.liumingye.cn/music"style='text-decoration:none;color:black;'>免费音乐｜myfreemp3</a></h2>
+                <p class="date">10-31</p>
+                <p class="views">-- 次浏览</p>
+            </div>
+        </div>
+        <div class="article-item" onclick="showArticle(2)">
+            <img src="https://static.codemao.cn/pickduck/rJYcCmlXye.jpeg?hash=Fpcae8G_Ee07M60u_QI-S2C0pEHG" alt="文章图片" class="article-image">
+            <div class="article-info">
+                <h2><a href="https://www.ncat21.com"style='text-decoration:none;color:black;'>免费影视｜网飞猫&可可影视</a></h2>
+                <p class="date">10-31</p>
+                <p class="views">-- 次浏览</p>
+            </div>
+        </div>
+        <div class="article-item" onclick="showArticle(3)">
+            <img src="https://miaosou.fun/static/img/logo.3174f89.png" alt="文章图片" class="article-image">
+            <div class="article-info">
+                <h2><a href="https://miaosou.fun/info?searchKey="style='text-decoration:none;color:black;'>免费搜索｜秒搜</a></h2>
+                <p class="date">10-31</p>
+                <p class="views">-- 次浏览</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模拟文章页面内容，用 JavaScript 动态填充 -->
+    <div id="article">
+        <h1 id="article-title"></h1>
+        <p class="date" id="article-date"></p>
+        <div class="content" id="article-content"></div>
+        <button id="back-button" onclick="goBack()">返回</button>
+    </div>
+
+    <script>
+        // 定义每篇文章的内容
+        const articles = {
+            1: {
+                title: "免费音乐 | myfreemp3在线免费音乐",
+                date: "2024-10-31",
+                content: "https://tools.liumingye.cn/music/    【myfreemp3音乐软件】；支持免费畅听全网音乐；<br>趣加音乐内部版：https://ccp.cloudroo.top/?type=player&id=233893723<br><img src='https://static.codemao.cn/pickduck/ByV9oXlQJx.jpeg?hash=FhajzNBdm1k13PtCHawxfhpx61g8' alt='文章配图'>"
+            },
+            2: {
+                title: "免费影视 | 网飞猫&可可影视",
+                date: "2024-10-31",
+                content: "网飞猫：https://www.ncat21.com<br>可可影视：https://www.keke1.app<br><img src='https://static.codemao.cn/pickduck/HJSXn7xXkg.jpeg?hash=FnjnWqW7zkS716W0aSyzy2bh61dF' alt='文章配图'>在线观看全网影视"
+            },
+            3: {
+                title: "免费搜索 | 秒搜",
+                date: "2024-10-31",
+                content: "秒搜--坚持做最好用的网盘资源搜索引擎！<br>https://miaosou.fun/info?searchKey=#<br><img src='https://static.codemao.cn/pickduck/rk0fAmemyx.jpeg?hash=FrjA8QB5LhNA6Rffh5qEwHo_HGvT' alt='文章配图'>"
+            }
+        };
+
+        // 显示文章内容
+        function showArticle(articleId) {
+            // 获取文章内容
+            const article = articles[articleId];
+            if (article) {
+                document.getElementById('article-title').innerText = article.title;
+                document.getElementById('article-date').innerText = article.date;
+                document.getElementById('article-content').innerHTML = article.content;  // 使用 innerHTML 支持图片和换行
+
+                // 隐藏主页，显示文章内容
+                document.querySelector('.header').style.display = 'none';
+                document.querySelector('.category').style.display = 'none';
+                document.querySelector('.article-list').style.display = 'none';
+                document.getElementById('article').style.display = 'block';
+            }
+        }
+
+        // 返回到主页
+        function goBack() {
+            document.querySelector('.header').style.display = 'block';
+            document.querySelector('.category').style.display = 'flex';
+            document.querySelector('.article-list').style.display = 'flex';
+            document.getElementById('article').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
