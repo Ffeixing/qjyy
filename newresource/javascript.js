@@ -1,15 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
     const resources = {
-        "Office软件(稍后补全）": [
+        "Office软件(待补全）": [
             { title: "Office2003完美版", url: "https://www.123684.com/s/sBhZVv-5SZ4H" },
             { title: "Office2007三合一完美版", url: "https://www.123684.com/s/sBhZVv-iSZ4H" },
             { title: "Office2010三合一完美版", url: "https://www.123684.com/s/sBhZVv-LSZ4H" },
             { title: "Office2013三合一完美版", url: "https://www.123684.com/s/sBhZVv-tSZ4H" },
             { title: "Office2016三合一完美版", url: "https://www.123684.com/s/sBhZVv-zSZ4H" },
-            { title: "Office2003标准版", url: "https" },
-            { title: "Office2007专业增强版", url: "https:" },
+            { title: "Office1997标准版", url: "https://www.123684.com/s/sBhZVv-BcZ4H" },
+            { title: "Office2000标准版", url: "https://www.123684.com/s/sBhZVv-acZ4H" },
+            { title: "Office2003标准版", url: "https://www.123684.com/s/sBhZVv-pcZ4H" },            
+            { title: "Office2007专业增强版", url: "https://www.123684.com/s/sBhZVv-fcZ4H:" },
             { title: "Office2010专业增强版", url: "https:" },
-            { title: "Office2013专业增强版", url: "https:" },
+            { title: "Office2013专业增强版", url: "https://www.123684.com/s/sBhZVv-JcZ4H" },
             { title: "Office2016专业增强版", url: "https:" },
             { title: "Office2019专业增强版", url: "https:" },
             { title: "Office2021专业增强版", url: "https:" },
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             { title: "WPS2019专业版（教育部专用）", url: "https://www.123684.com/s/sBhZVv-6SZ4H" },
             { title: "WPS2016专业版（中国石油）", url: "https://www.123684.com/s/sBhZVv-ySZ4H" },
         ],
-        "Adoble软件(稍后补全）": [
+        "Adoble软件(待补全）": [
             { title: "Photoshop 2017", url: "https://www.office.com/word" },
             { title: "Photoshop 2018", url: "https://www.office.com/excel" },
             { title: "Photoshop 2019", url: "https://www.office.com/powerpoint" },
