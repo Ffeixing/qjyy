@@ -82,9 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
             { title: "Myfreemp3", url: "https://tools.liumingye.cn/music/#/", imageUrl: "https://via.placeholder.com/150/888888" }
             
         ],
-        "「趣加应用APP」": [
-            
-            { title: "【安卓APP】趣加应用,致力于优质安卓软件资源分享!", url: "https://qujia.us.kg", imageUrl: "https://via.placeholder.com/150/777777" }
+        "常见问题": [
+            { title: "检测到病毒无法下载", url: "http://qujia.us.kg/other/question/", imageUrl: "" },
+            { title: "「趣加应用APP」致力于优质安卓资源分享", url: "https://qjyy.sxl.cn", imageUrl: "" }
             
         ],
     };
@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 加载资源
+   // 加载资源
     function loadResources(category) {
         resourceContainer.innerHTML = '';
         resources[category].forEach(resource => {
@@ -117,8 +118,13 @@ document.addEventListener('DOMContentLoaded', function() {
             resourceLink.href = resource.url;
             resourceLink.textContent = '打开';
             resourceBox.appendChild(resourceTitle);
-            resource.js
             resourceBox.appendChild(resourceLink);
+            // 添加迅雷下载按钮
+            const downloadButton = document.createElement('a');
+            downloadButton.href = 'https://pan.xunlei.com/s/VOHLbqhS0fCwSSUSS8zAOYWKA1?pwd=xaj3';
+            downloadButton.textContent = '迅雷下载';
+            downloadButton.target = '_blank'; // 在新标签页中打开
+            resourceBox.appendChild(downloadButton);
             // 添加图片
             if (resource.imageUrl) {
                 const resourceImage = document.createElement('img');
@@ -131,6 +137,47 @@ document.addEventListener('DOMContentLoaded', function() {
             resourceContainer.appendChild(resourceBox);
         });
     }
+    // ... (existing code)
+     
+     // 加载资源
+     function loadResources(category) {
+         resourceContainer.innerHTML = '';
+         resources[category].forEach(resource => {
+             const resourceBox = document.createElement('div');
+             resourceBox.className = 'resource-box';
+     
+             const resourceTitle = document.createElement('h3');
+             resourceTitle.textContent = resource.title;
+             resourceBox.appendChild(resourceTitle);
+     
+             const resourceLink = document.createElement('a');
+             resourceLink.href = resource.url;
+             resourceLink.textContent = '✔️打开';
+             resourceBox.appendChild(resourceLink);
+     
+             // 添加迅雷下载按钮
+             const downloadButton = document.createElement('a');
+             downloadButton.href = 'https://pan.xunlei.com/s/VOHLbqhS0fCwSSUSS8zAOYWKA1?pwd=xaj3';
+             downloadButton.textContent = ' （🔥迅雷下载）';
+             downloadButton.target = '_blank'; // 在新标签页中打开
+             resourceBox.appendChild(downloadButton);
+     
+             // 添加图片
+             if (resource.imageUrl) {
+                 const resourceImage = document.createElement('img');
+                 resourceImage.src = resource.imageUrl;
+                 resourceImage.alt = resource.title;
+                 resourceImage.style.width = '20px';
+                 resourceImage.style.borderRadius = '10px';
+                 resourceBox.insertBefore(resourceImage, resourceTitle);
+             }
+     
+             resourceContainer.appendChild(resourceBox);
+         });
+     }
+     
+     // ... (rest of your existing code)
+     
 
     // 默认加载第一个分类的资源
     const firstCategory = Object.keys(resources)[0];
@@ -160,6 +207,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const resourceLink = document.createElement('a');
             resourceLink.href = resource.url;
             resourceLink.textContent = '打开';
+            const resourceLink2 = document.createElement('a');
+            
+
             resourceBox.appendChild(resourceTitle);
             resourceBox.appendChild(resourceLink);
 
