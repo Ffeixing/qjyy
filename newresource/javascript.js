@@ -78,8 +78,9 @@ document.addEventListener('DOMContentLoaded', function() {
             { title: "文件DM5计算", url: "http://tutieshi.com/tools/getFileMd5", imageUrl: "https://via.placeholder.com/150/BBBBBB" }
         ],
         "免费影音": [
-            { title: "可可影视", url: "https://www.kkys01.com/", imageUrl: "https://via.placeholder.com/150/999999" },
-            { title: "Myfreemp3", url: "https://tools.liumingye.cn/music/#/", imageUrl: "https://via.placeholder.com/150/888888" }
+            { title: "可可影视", url: "https://www.kkys01.com/", imageUrl: "https://static.codemao.cn/pickduck/HkW-z2RF1e.jpeg?hash=Fgxfplu8PKe1-ljFHltKGFTJSQ_h" },
+            { title: "Myfreemp3", url: "https://tools.liumingye.cn/music/#/", imageUrl: "https://static.codemao.cn/pickduck/SkmffnAt1l.jpeg?hash=FlWp9tvEd1roi4adi0cYUvThyl8u" },
+            { title: "超算平台-DeepSeek", url: "https://chat.scnet.cn/#/home", imageUrl: "https://static.codemao.cn/pickduck/HkuQWnAYyl.jpeg?hash=Fm7Na6S7zdnYVZrHWfxe8OFjPxeJ" },
             
         ],
         "常见问题": [
@@ -158,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
              // 添加迅雷下载按钮
              const downloadButton = document.createElement('a');
              downloadButton.href = 'https://pan.xunlei.com/s/VOHLbqhS0fCwSSUSS8zAOYWKA1?pwd=xaj3';
-             downloadButton.textContent = ' （🔥迅雷下载）';
+             downloadButton.textContent = ' （🔥备用迅雷）';
              downloadButton.target = '_blank'; // 在新标签页中打开
              resourceBox.appendChild(downloadButton);
      
