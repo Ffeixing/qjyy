@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>新用户注册</title>
+  
+  <!-- 导入外部JS库 -->
+  <script src="//static2.pgaot.com/Assets/js/jquery-2.2.4.min.js"></script><!--导入jq-->
+  <script src="//static2.pgaot.com/Assets/js.class/pgdbs.class.js"></script><!--导入核心逻辑-->
+  <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9.js"></script><!--导入用户注册登录信息的资源库-->
+  <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script><!--导入签名-->
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      justify-content: center;
+    }
+    .container {
+      width: 90%;
+      max-width: 400px;
+      padding: 20px;
+      background: white;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      text-align: center;
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      display: none;
+    }
+    button:disabled {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>新用户注册</h2>
+    <input type="email" id="email" placeholder="请输入邮箱">
+    <input type="text" id="nickname" placeholder="请输入昵称">
+    <input type="password" id="password" placeholder="请输入密码">
+    <input type="password" id="confirmPassword" placeholder="确认密码">
+    <button id="registerBtn">注册</button>
+  </div>
+  
+  <script>
+    $(document).ready(function () {
+      // 监听密码输入，检查密码与确认密码是否一致，若一致则显示注册按钮，否则隐藏
+      $("#confirmPassword").on("input", function () {
+        if ($("#password").val() === $("#confirmPassword").val() && $("#password").val().length > 0) {
+          $("#registerBtn").show();
+        } else {
+          $("#registerBtn").hide();
+        }
+      });
+
+      $("#registerBtn").click(function () {
+        let email = $("#email").val().trim();
+        let nickname = $("#nickname").val().trim();
+        let password = $("#password").val().trim();
+
+        if (!email || !nickname || !password) {
+          alert("请填写完整信息");
+          return;
+        }
+
+        // 1. 先查询邮箱是否已注册
+        var table1 = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
+        table1.onGetData(function (json, id, url) {
+          console.log("查询邮箱返回数据：", json);
+
+          if (json.fields.length > 0) {
+            alert("该邮箱已注册");
+          } else {
+            // 2. 邮箱未注册，调用 MD5 API 对密码进行加密（使用POST方式）
+            $.ajax({
+              url: "https://md5.jixiannet.com/api/md5",
+              type: "POST",
+              contentType: "application/json",
+              data: JSON.stringify({ "value": password }),
+              dataType: "json",
+              success: function (md5Data) {
+               
+                let hashedPassword = md5Data.md5;
+                
+                // 3. 插入数据到数据表 (使用 `setTableData` 方法)
+                var tableInsert = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
+                let insertConfig = {
+                  type: "INSERT",
+                  filter: "name,password,mail",
+                  fields: '("' + nickname + '","' + hashedPassword + '","' + email + '")',
+                  id: "insertUser"
+                };
+
+                tableInsert.setTableData(insertConfig);
+                
+                alert("注册成功");
+              },
+              error: function (xhr, status, error) {
+                alert("MD5 加密失败：" + error);
+                console.log("详细错误：", xhr.responseText);
+              }
+            });
+          }
+        });
+        
+        // 查询邮箱是否已注册
+        table1.getTableData({ page: 1, limit: 1, id: 'getTableData', filter: 'mail="' + email + '"' });
+      });
+    });
+  </script>
+</body>
+</html>
