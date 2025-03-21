@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>避风港</title>
+  <style>
+    /* 整体页面样式 */
+    body {
+      font-family: "Arial", sans-serif;
+      background: #f0f8ff;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      color: #ff7f50;
+    }
+    p {
+      text-align: center;
+      color: #555;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      border: 2px solid #ff7f50;
+      border-radius: 4px;
+      resize: none;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #ff7f50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #ff6347;
+    }
+    .response-box {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ff7f50;
+      border-radius: 4px;
+      background: #fffaf0;
+      font-size: 18px;
+      color: #333;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    h2 {
+      margin-top: 30px;
+      color: #ff7f50;
+    }
+    #history {
+      list-style: none;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto;
+      border-top: 1px solid #ddd;
+      margin-top: 10px;
+    }
+    #history li {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f9f9f9;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>避风港</h1>
+    <p>倾诉你的郁闷，获得一份暖心回复，让我们一起寻找生活的阳光。</p>
+    <textarea id="input" placeholder="在这里输入你的郁闷..."></textarea>
+    <button id="submit">提交</button>
+    <div id="response" class="response-box"></div>
+    <button id="share">分享这段回复</button>
+    <h2>历史记录</h2>
+    <ul id="history"></ul>
+  </div>
+  <script>
+    // 预设的暖心回复数组
+    const warmReplies = [
+      "每一天都是新的开始，相信明天会更好。",
+      "无论多么黑暗，总有一线光明等待你去发现。",
+      "你已经做得很好，给自己一个拥抱。",
+      "风雨之后，必见彩虹，请保持希望。",
+      "你不是一个人在战斗，我们都在你身边。",
+      "相信自己，你拥有无限可能。",
+      "即使前路坎坷，也别忘了微笑面对。",
+      "每一次低谷，都是成长的契机。"
+    ];
+
+    // 获取页面元素
+    const input = document.getElementById('input');
+    const submitButton = document.getElementById('submit');
+    const responseDiv = document.getElementById('response');
+    const shareButton = document.getElementById('share');
+    const historyList = document.getElementById('history');
+
+    let latestReply = ""; // 用于存储最新生成的回复
+
+    // 加载历史记录
+    function loadHistory() {
+      let history = JSON.parse(localStorage.getItem('history')) || [];
+      historyList.innerHTML = "";
+      history.forEach(record => {
+        let li = document.createElement('li');
+        li.textContent = "你说: " + record.input + " | 回复: " + record.reply;
+        historyList.appendChild(li);
+      });
+    }
+
+    // 保存新记录到历史（同时存入localStorage）
+    function saveHistory(newRecord) {
+      let history = JSON.parse(localStorage.getItem('history')) || [];
+      history.push(newRecord);
+      localStorage.setItem('history', JSON.stringify(history));
+      loadHistory();
+    }
+
+    // 提交按钮点击事件：生成回复并保存记录
+    submitButton.addEventListener('click', function() {
+      let userInput = input.value.trim();
+      if (!userInput) {
+        alert("请输入你的心情~");
+        return;
+      }
+      // 随机选择一条回复
+      let randomIndex = Math.floor(Math.random() * warmReplies.length);
+      let reply = warmReplies[randomIndex];
+      latestReply = reply;
+      responseDiv.textContent = reply;
+      // 保存记录到历史
+      saveHistory({input: userInput, reply: reply});
+      // 清空输入框
+      input.value = "";
+    });
+
+    // 分享功能：将最新回复复制到剪贴板
+    shareButton.addEventListener('click', function() {
+      if (!latestReply) {
+        alert("请先生成回复再分享哦！");
+        return;
+      }
+      navigator.clipboard.writeText(latestReply).then(function() {
+        alert("回复已复制到剪贴板，快去分享吧！");
+      }, function(err) {
+        alert("复制失败，请手动复制。");
+      });
+    });
+
+    // 页面加载时初始化历史记录
+    loadHistory();
+  </script>
+</body>
+</html>
