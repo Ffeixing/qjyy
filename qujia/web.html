@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>趣加 - 内嵌网页</title>
+    <script>
+        document.addEventListener('plusready', function() {  
+    var webview = plus.webview.currentWebview();  
+    plus.key.addEventListener('backbutton', function() {  
+        webview.canBack(function(e) {  
+            if(e.canBack) {  
+                webview.back();  
+            } else {  
+                webview.close(); //hide,quit  
+                //plus.runtime.quit();  
+            }  
+        })  
+    });  
+});
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
