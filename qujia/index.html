@@ -12,26 +12,6 @@
 
 
 
-    
-    <script>
-        document.addEventListener('plusready', function() {  
-    var webview = plus.webview.currentWebview();  
-    plus.key.addEventListener('backbutton', function() {  
-        webview.canBack(function(e) {  
-            if(e.canBack) {  
-                webview.back();  
-            } else {  
-                webview.close(); //hide,quit  
-                //plus.runtime.quit();  
-            }  
-        })  
-    });  
-});
-    </script>
-
-
-
-
 
 
 
@@ -300,7 +280,7 @@ plusReady(function () {
     plus.key.addEventListener('backbutton', handleBack);  
 });
         
-    </script>
+    </script>//返回键处理
 
 
 </body>
