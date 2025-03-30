@@ -110,6 +110,20 @@
 
 
 
+    <script>
+        document.addEventListener('webkitfullscreenchange', function() {  
+    var el = document.webkitFullscreenElement; //获取全屏元素  
+    if(el) {  
+        plus.screen.lockOrientation('landscape'); //锁死屏幕方向为横屏  
+    } else {  
+        plus.screen.unlockOrientation(); //解除屏幕方向的锁定  
+    }  
+});
+    </script>
+
+
+
+
 
  </body>
 </html>
