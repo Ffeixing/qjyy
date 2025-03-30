@@ -1,110 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>文章页面</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* 内联 CSS 样式 */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-      padding-bottom: 80px; /* 为底部评论输入留出空间 */
-    }
-    .container {
-      width: 90%;
-      max-width: 800px;
-      margin: 20px auto;
-      background: #fff;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-    .article-content {
-      font-size: 16px;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-    /* 评论区域样式 */
-    .comments-container {
-      margin-top: 40px;
-      border-top: 1px solid #ddd;
-      padding-top: 20px;
-    }
-    .comments-container h2 {
-      font-size: 20px;
-      margin-bottom: 15px;
-    }
-    .comment {
-      display: flex;
-      margin-bottom: 15px;
-    }
-    .comment-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin-right: 15px;
-    }
-    .comment-content {
-      flex: 1;
-    }
-    .comment-header {
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-    .comment-name {
-      font-weight: bold;
-      margin-right: 10px;
-    }
-    .comment-time {
-      font-size: 12px;
-      color: #999;
-    }
-    .comment-text {
-      font-size: 14px;
-      line-height: 1.4;
-    }
-    /* 新增评论输入框固定在页面底部 */
-    .new-comment {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #fff;
-      border-top: 1px solid #ddd;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    }
-    .new-comment input {
-      flex: 1;
-      padding: 8px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .new-comment button {
-      margin-left: 10px;
-      padding: 8px 16px;
-      font-size: 14px;
-      background: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .new-comment button:hover {
-      background: #0056b3;
-    }
-  </style>
-<script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趣加 - 内嵌网页</title>
+    <script>
         document.addEventListener('plusready', function() {  
     var webview = plus.webview.currentWebview();  
     plus.key.addEventListener('backbutton', function() {  
@@ -119,153 +19,111 @@
     });  
 });
     </script>
-  <!-- 导入外部JS库 -->
-  <script src="//static2.pgaot.com/Assets/js/jquery-2.2.4.min.js"></script><!--导入jq-->
-  <script src="//static2.pgaot.com/Assets/js.class/pgdbs.class.js"></script><!--导入核心逻辑-->
-  <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0.js"></script><!--导入查询html的资源库-->
-  <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76.js"></script><!--导入评论区的资源库-->
-  <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9.js"></script><!--导入用户注册登录信息的资源库-->
-  <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script><!--导入签名-->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; }
+        
+        /* 顶部导航栏 */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        .navbar img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        /* 网页框 */
+        .iframe-container {
+            position: absolute;
+            top: 50px; /* 导航栏高度 */
+            left: 0;
+            width: 100%;
+            bottom: 0;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>文章标题</h1>
-    <div class="article-content">
-      正在加载文章内容...
+
+    <!-- 顶部导航 -->
+    <div class="navbar">
+        <img src="https://static.codemao.cn/pickduck/HJX2Jpcjkx.jpeg?hash=FlAzmrOiGSJSKBVSHudLfeU_02s4" alt="返回" id="backBtn">
+        <img src="https://static.codemao.cn/pickduck/HksR1a5o1l.jpeg?hash=FntcWBPOUsAh7x0MeQ0-RQB39Nnt" alt="分享" id="shareBtn">
     </div>
-    <!-- 评论容器 -->
-    <div class="comments-container">
-      <h2>评论</h2>
-      <div class="comments-list">
-        正在加载评论...
-      </div>
+
+    <!-- 内嵌网页 -->
+    <div class="iframe-container">
+        <iframe id="webFrame" src=""></iframe>
     </div>
-  </div>
-  
-  <!-- 新增评论输入区域 -->
-  <div class="new-comment">
-    <input type="text" id="commentInput" placeholder="请输入评论内容">
-    <button id="sendComment">发送</button>
-  </div>
-  
-  <script>
-    // 获取URL参数的函数
-    function getQueryParams() {
-      var params = {};
-      var queryString = window.location.search.substring(1);
-      var queries = queryString.split("&");
-      for (var i = 0; i < queries.length; i++) {
-        var pair = queries[i].split("=");
-        if (pair[0]) {
-          params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
         }
-      }
-      return params;
-    }
-    
-    // 提取传入的文章id和用户id参数
-    var queryParams = getQueryParams();
-    var articleId = queryParams['id'] || '';
-    var userId = queryParams['user'] || '';
-    
-    // 查询文章内容（使用第一个数据库实例）
-    var table1 = new pgdbs(dbs_56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0);
-    table1.onGetData(function(json, id, url) {
-      if (json && json.fields && json.fields.length > 0) {
-        var firstField = json.fields[0];
-        document.querySelector('.container h1').textContent = firstField.title || '文章标题';
-        document.querySelector('.article-content').innerHTML = firstField.html || '无内容';
-      } else {
-        alert("文章查询返回无效数据：" + JSON.stringify(json));
-      }
-    });
-    table1.getTableData({
-      page: 1,
-      limit: 30,
-      id: 'getTableData',
-      filter: 'createdAt = "' + articleId + '"'
-    });
-    
-    // 查询评论内容（使用第二个数据库实例）
-    var tableComment = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
-    function loadComments() {
-      tableComment.getTableData({
-        page: 1,
-        limit: 999,
-        id: 'getCommentsData',
-        filter: 'id = "' + articleId + '"'
-      });
-    }
-    tableComment.onGetData(function(json, id, url) {
-      var commentsHtml = "";
-      if (json && json.fields && json.fields.length > 0) {
-        json.fields.forEach(function(item) {
-          commentsHtml += '<div class="comment">';
-          commentsHtml += '<img src="' + item.picture + '" alt="头像" class="comment-avatar">';
-          commentsHtml += '<div class="comment-content">';
-          commentsHtml += '<div class="comment-header">';
-          commentsHtml += '<span class="comment-name">' + item.name + '</span>';
-          commentsHtml += '<span class="comment-time">' + item.time + '</span>';
-          commentsHtml += '</div>';
-          commentsHtml += '<div class="comment-text">' + item.thing + '</div>';
-          commentsHtml += '</div></div>';
+
+        const iframe = document.getElementById('webFrame');
+        let pageUrl = getQueryParam('url');
+        let userId = localStorage.getItem('userid');
+
+        if (pageUrl) {
+            pageUrl = decodeURIComponent(pageUrl);
+            if (pageUrl.includes('article.html') && userId) {
+                pageUrl += `&user=${userId}`;
+            }
+            iframe.src = pageUrl;
+        } else {
+            iframe.src = 'about:blank';
+        }
+
+        document.getElementById('backBtn').addEventListener('click', () => {
+            window.history.back();
         });
-      } else {
-        commentsHtml = '暂无评论';
-      }
-      document.querySelector('.comments-list').innerHTML = commentsHtml;
-    });
-    // 初次加载评论
-    loadComments();
-    
-    // 定义变量存储用户信息（昵称和头像）
-    var userName = '';
-    var userPicture = '';
-    
-    // 查询用户信息（使用第三个数据库实例，用于获取用户昵称和头像）
-    var tableUser = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
-    tableUser.onGetData(function(json, id, url) {
-      if (json && json.fields && json.fields.length > 0) {
-        var userInfo = json.fields[0];
-        userName = userInfo.name || '';
-        userPicture = userInfo.picture || '';
-      } else {
-        alert("用户信息查询返回无效数据：" + JSON.stringify(json));
-      }
-    });
-    tableUser.getTableData({
-      page: 10,
-      limit: 1,
-      id: 'getUserInfo',
-      filter: 'createdAt = "' + userId + '"'
-    });
-    
-    // 当用户点击发送按钮时，执行新增评论操作（使用与“查询评论”相同的数据库实例）
-    document.getElementById('sendComment').addEventListener('click', function() {
-      var commentContent = document.getElementById('commentInput').value.trim();
-      if (!commentContent) {
-        alert("请输入评论内容");
-        return;
-      }
-      var currentTime = new Date().toLocaleString();
-      var tableInsert = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
-      var insertConfig = {
-        type: "INSERT",
-        filter: 'name,time,thing,id,picture',
-        fields: '("' + userName + '","' + currentTime + '","' + commentContent + '","' + articleId + '","' + userPicture + '")',
-        id: 'insertComment'
 
-      };
-     
+        document.getElementById('shareBtn').addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: '趣加网页',
+                    url: window.location.href
+                });
+            } else {
+                alert('暂时不支持分享功能');
+            }
+        });
+    </script>
 
 
 
-tableInsert.setTableData(insertConfig);
-      alert("评论成功");
-      document.getElementById('commentInput').value = "";
-      // 延时刷新评论区，等待数据写入
-      setTimeout(loadComments, 1000);
-    });
-  </script>
-</body>
+
+    <script>
+        document.addEventListener('webkitfullscreenchange', function() {  
+    var el = document.webkitFullscreenElement; //获取全屏元素  
+    if(el) {  
+        plus.screen.lockOrientation('landscape'); //锁死屏幕方向为横屏  
+    } else {  
+        plus.screen.unlockOrientation(); //解除屏幕方向的锁定  
+    }  
+});
+    </script>
+
+
+
+
+
+ </body>
 </html>
