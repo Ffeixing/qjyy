@@ -104,10 +104,25 @@
       background: #0056b3;
     }
   </style>
+<script>
+        document.addEventListener('plusready', function() {  
+    var webview = plus.webview.currentWebview();  
+    plus.key.addEventListener('backbutton', function() {  
+        webview.canBack(function(e) {  
+            if(e.canBack) {  
+                webview.back();  
+            } else {  
+                webview.close(); //hide,quit  
+                //plus.runtime.quit();  
+            }  
+        })  
+    });  
+});
+    </script>
   <!-- 导入外部JS库 -->
   <script src="//static2.pgaot.com/Assets/js/jquery-2.2.4.min.js"></script><!--导入jq-->
   <script src="//static2.pgaot.com/Assets/js.class/pgdbs.class.js"></script><!--导入核心逻辑-->
-  <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.b66a97b2545342a3c381c038df557eef7a628aeee8312e1dd8a5a29bcb08c7d3.js"></script><!--导入查询html的资源库-->
+  <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0.js"></script><!--导入查询html的资源库-->
   <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76.js"></script><!--导入评论区的资源库-->
   <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9.js"></script><!--导入用户注册登录信息的资源库-->
   <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script><!--导入签名-->
@@ -154,7 +169,7 @@
     var userId = queryParams['user'] || '';
     
     // 查询文章内容（使用第一个数据库实例）
-    var table1 = new pgdbs(dbs_b66a97b2545342a3c381c038df557eef7a628aeee8312e1dd8a5a29bcb08c7d3);
+    var table1 = new pgdbs(dbs_56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0);
     table1.onGetData(function(json, id, url) {
       if (json && json.fields && json.fields.length > 0) {
         var firstField = json.fields[0];
@@ -219,7 +234,7 @@
       }
     });
     tableUser.getTableData({
-      page: 1,
+      page: 10,
       limit: 1,
       id: 'getUserInfo',
       filter: 'createdAt = "' + userId + '"'
@@ -239,8 +254,13 @@
         filter: 'name,time,thing,id,picture',
         fields: '("' + userName + '","' + currentTime + '","' + commentContent + '","' + articleId + '","' + userPicture + '")',
         id: 'insertComment'
+
       };
-      tableInsert.setTableData(insertConfig);
+     
+
+
+
+tableInsert.setTableData(insertConfig);
       alert("评论成功");
       document.getElementById('commentInput').value = "";
       // 延时刷新评论区，等待数据写入
