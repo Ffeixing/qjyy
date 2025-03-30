@@ -10,6 +10,23 @@
     <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script><!-- 导入签名 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script><!-- 导入 MD5 加密库 -->
 
+
+
+    <script>
+        document.addEventListener('plusready', function() {  
+    var webview = plus.webview.currentWebview();  
+    plus.key.addEventListener('backbutton', function() {  
+        webview.canBack(function(e) {  
+            if(e.canBack) {  
+                webview.back();  
+            } else {  
+                webview.close(); //hide,quit  
+                //plus.runtime.quit();  
+            }  
+        })  
+    });  
+});
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; }
