@@ -191,7 +191,7 @@
     function loadComments() {
       tableComment.getTableData({
         page: 1,
-        limit: 999,
+        limit: 99999,
         id: 'getCommentsData',
         filter: 'id = "' + articleId + '"'
       });
@@ -230,11 +230,11 @@
         userName = userInfo.name || '';
         userPicture = userInfo.picture || '';
       } else {
-        alert("用户信息查询返回无效数据：" + JSON.stringify(json));
+        alert("请先登录");
       }
     });
     tableUser.getTableData({
-      page: 10,
+      page: 1,
       limit: 1,
       id: 'getUserInfo',
       filter: 'createdAt = "' + userId + '"'
