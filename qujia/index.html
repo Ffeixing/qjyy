@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+
+
+
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>趣加 - 首页</title>
 
+
+
+
+    
+    <script>
+        document.addEventListener('plusready', function() {  
+    var webview = plus.webview.currentWebview();  
+    plus.key.addEventListener('backbutton', function() {  
+        webview.canBack(function(e) {  
+            if(e.canBack) {  
+                webview.back();  
+            } else {  
+                webview.close(); //hide,quit  
+                //plus.runtime.quit();  
+            }  
+        })  
+    });  
+});
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     <!-- 引入库 -->
     <script src="//static2.pgaot.com/Assets/js/jquery-2.2.4.min.js"></script> <!-- jQuery -->
     <script src="//static2.pgaot.com/Assets/js.class/pgdbs.class.js"></script> <!-- 核心逻辑 -->
