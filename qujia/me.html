@@ -12,21 +12,7 @@
 
 
 
-    <script>
-        document.addEventListener('plusready', function() {  
-    var webview = plus.webview.currentWebview();  
-    plus.key.addEventListener('backbutton', function() {  
-        webview.canBack(function(e) {  
-            if(e.canBack) {  
-                webview.back();  
-            } else {  
-                webview.close(); //hide,quit  
-                //plus.runtime.quit();  
-            }  
-        })  
-    });  
-});
-    </script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; }
@@ -182,7 +168,7 @@ plusReady(function () {
     };  
 
     plus.key.addEventListener('backbutton', handleBack);  
-});
+});//返回键处理
 
     </script>
 
