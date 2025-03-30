@@ -107,5 +107,69 @@
         });
     </script>
 
+
+
+    
+
+
+    
+
+    <script>
+
+
+
+
+        
+var plusReady = function (callback) {  
+    if (window.plus) {  
+        callback();  
+    } else {  
+        document.addEventListener('plusready', callback);  
+    }  
+};  
+
+plusReady(function () {  
+    var firstBack = 0;  
+    var handleBack = function () {  
+        var currentWebview = plus.webview.currentWebview();  
+        var topWebview = plus.webview.getTopWebview();  
+        var now = Date.now || function () {  
+            return new Date().getTime();  
+        };  
+
+        currentWebview.canBack(function (evt) {  
+            /**  
+             * 有可后退的历史记录，则后退。  
+             * 否则，关闭当前窗口。  
+             * 如果当前窗口是入口页，那么执行退出的逻辑。  
+             */  
+            if (currentWebview.id === plus.runtime.appid) {  
+                if (!firstBack) {  
+                    firstBack = now();  
+                    plus.nativeUI.toast('再按一次退出应用');  
+
+                    setTimeout(function () {  
+                        firstBack = 0;  
+                    }, 2000);  
+                } else if (now() - firstBack < 2000) {  
+                    plus.runtime.quit();  
+                }  
+            } else {  
+                if (evt.canBack) {  
+                    history.back();  
+                } else {  
+                    currentWebview.close('auto');  
+                }  
+            }  
+        });  
+    };  
+
+    plus.key.addEventListener('backbutton', handleBack);  
+});
+
+    </script>
+
+
+
 </body>
 </html>
