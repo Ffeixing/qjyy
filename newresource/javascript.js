@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         "音视频处理工具": [
             { title: "MP4转MP3", url: "https://www.mp4tomp3.org/", imageUrl: "https://via.placeholder.com/150/999999" },
+            { title: "MP3升降调", url: "https://audio.worthsee.com/pitch/format-MP3", imageUrl: "https://via.placeholder.com/150/999999" },
             { title: "视频转GIF", url: "http://tutieshi.com/video/", imageUrl: "https://via.placeholder.com/150/888888" },
             { title: "m3u8视频在线提取", url: "http://tutieshi.com/tools/imgToBase64", imageUrl: "https://via.placeholder.com/150/777777" }
         ],
