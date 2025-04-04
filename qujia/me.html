@@ -7,6 +7,7 @@
   <script src="//static2.pgaot.com/Assets/js/jquery-2.2.4.min.js"></script>
   <script src="//static2.pgaot.com/Assets/js.class/pgdbs.class.js"></script>
   <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9.js"></script>
+  <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76.js"></script>
   <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <style>
@@ -51,7 +52,7 @@
       <img id="avatar" src="" alt="头像">
       <input type="file" id="fileInput" style="display: none;" />
       <div id="username">点击修改昵称</div>
-      <button id="logoutBtn">退出</button>
+      <button id="logoutBtn">退出登录</button>
     </div>
   </div>
 
@@ -101,19 +102,26 @@
               id: "writename"
             };
             tablewritename.setTableData(insertConfig);
+
 //更新数据到评论区
-var tablewritepicture = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
-            let insertConfig = {
+				var nexttablewritename = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
+            let insertConfig2 = {
               type: "UPDATE",
               filter: 'userid="' + userId + '"',
               fields: 'name="' + newName + '"',
-              id: "writename"
+              id: "nextwritename"
             };
-            tablewritepicture.setTableData(insertConfig);
+            nexttablewritename.setTableData(insertConfig2);
             alert("修改成功");
             location.reload();
+
+
           }
+
+
         });
+
+
 
         // 点击头像上传
         $("#avatar").click(function() {
@@ -153,15 +161,16 @@ var tablewritepicture = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba
             };
             tablewritepicture.setTableData(insertConfig);
             alert("修改成功");
+
 //更新数据到评论区
-var tablewritepicture = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
-            let insertConfig = {
+var nexttablewritepicture = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
+            let insertConfig2 = {
               type: "UPDATE",
               filter: 'userid="' + userId + '"',
               fields: 'picture="' + result.url + '"',
-              id: "writename"
+              id: "nextwritepicture"
             };
-            tablewritepicture.setTableData(insertConfig);
+            nexttablewritepicture.setTableData(insertConfig2);
             alert("修改成功");
             location.reload();
 
