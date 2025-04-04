@@ -101,6 +101,15 @@
               id: "writename"
             };
             tablewritename.setTableData(insertConfig);
+//更新数据到评论区
+var tablewritepicture = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
+            let insertConfig = {
+              type: "UPDATE",
+              filter: 'userid="' + userId + '"',
+              fields: 'name="' + newName + '"',
+              id: "writename"
+            };
+            tablewritepicture.setTableData(insertConfig);
             alert("修改成功");
             location.reload();
           }
@@ -139,6 +148,16 @@ var tablewritepicture = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba
             let insertConfig = {
               type: "UPDATE",
               filter: 'createdAt="' + userId + '"',
+              fields: 'picture="' + result.url + '"',
+              id: "writename"
+            };
+            tablewritepicture.setTableData(insertConfig);
+            alert("修改成功");
+//更新数据到评论区
+var tablewritepicture = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
+            let insertConfig = {
+              type: "UPDATE",
+              filter: 'userid="' + userId + '"',
               fields: 'picture="' + result.url + '"',
               id: "writename"
             };
