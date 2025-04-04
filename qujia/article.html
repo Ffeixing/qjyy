@@ -251,8 +251,8 @@
       var tableInsert = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
       var insertConfig = {
         type: "INSERT",
-        filter: 'name,time,thing,id,picture',
-        fields: '("' + userName + '","' + currentTime + '","' + commentContent + '","' + articleId + '","' + userPicture + '")',
+        filter: 'name,time,thing,id,picture,userid',
+        fields: '("' + userName + '","' + currentTime + '","' + commentContent + '","' + articleId + '","' + userPicture + '","' + userId + '")',
         id: 'insertComment'
 
       };
