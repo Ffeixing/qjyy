@@ -1,178 +1,206 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>趣加 - 我的</title>
-    <script src="//static2.pgaot.com/Assets/js/jquery-2.2.4.min.js"></script><!-- 导入 jq -->
-    <script src="//static2.pgaot.com/Assets/js.class/pgdbs.class.js"></script><!-- 导入核心逻辑 -->
-    <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9.js"></script><!-- 导入用户注册登录信息的资源库 -->
-    <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script><!-- 导入签名 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script><!-- 导入 MD5 加密库 -->
-
-
-
-
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; }
-        #content { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 18px; }
-        input { width: 80%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
-        button { width: 85%; padding: 10px; margin-top: 10px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        button:hover { background-color: darkblue; }
-        #register { margin-top: 10px; color: blue; text-decoration: underline; cursor: pointer; }
-        #tabbar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            background: white;
-            border-top: 1px solid #ddd;
-            padding: 10px 0;
-        }
-        .tab { flex: 1; text-align: center; font-size: 14px; text-decoration: none; color: gray; }
-        .tab img { width: 24px; height: 24px; display: block; margin: 0 auto 5px; }
-        .active { color: blue; font-weight: bold; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>趣加 - 我的</title>
+  <script src="//static2.pgaot.com/Assets/js/jquery-2.2.4.min.js"></script>
+  <script src="//static2.pgaot.com/Assets/js.class/pgdbs.class.js"></script>
+  <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9.js"></script>
+  <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; }
+    #content { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 18px; }
+    input { width: 80%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+    button { width: 85%; padding: 10px; margin-top: 10px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: darkblue; }
+    #register { margin-top: 10px; color: blue; text-decoration: underline; cursor: pointer; }
+    #tabbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      background: white;
+      border-top: 1px solid #ddd;
+      padding: 10px 0;
+    }
+    .tab { flex: 1; text-align: center; font-size: 14px; text-decoration: none; color: gray; }
+    .tab img { width: 24px; height: 24px; display: block; margin: 0 auto 5px; }
+    .active { color: blue; font-weight: bold; }
+    #userInfo { text-align: center; display: none; }
+    #avatar { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px; object-fit: cover; cursor: pointer; }
+    #username { font-size: 20px; margin-bottom: 15px; cursor: pointer; text-decoration: underline; }
+    #logoutBtn { background-color: red; width: 85%; margin-top: 20px; }
+    #logoutBtn:hover { background-color: darkred; }
+  </style>
 </head>
 <body>
 
-    <div id="content">
-        <div id="loginBox">
-            <input type="text" id="email" placeholder="请输入账号">
-            <input type="password" id="password" placeholder="请输入密码">
-            <button id="loginBtn">登录</button>
-            <div id="register">立即注册</div>
-        </div>
-        <div id="userInfo" style="display: none;"></div>
+  <div id="content">
+    <div id="loginBox">
+      <input type="text" id="email" placeholder="请输入账号">
+      <input type="password" id="password" placeholder="请输入密码">
+      <button id="loginBtn">登录</button>
+      <div id="register">立即注册</div>
     </div>
 
-    <div id="tabbar">
-        <a href="javascript:history.back();" class="tab">
-            <img src="https://static.codemao.cn/pickduck/HyaM739syx.jpeg?hash=Ftl4ZEyNDd2xNGxgYNRrrYdyVvv-" alt="首页">
-            <div>首页</div>
-        </a>
-        <a href="#" class="tab active"> <!-- 无操作 -->
-            <img src="https://static.codemao.cn/pickduck/ry2QXncjyl.jpeg?hash=FsNrnWAmpCXwmKfLdfRj0YHV0TBy" alt="我的">
-            <div>我的</div>
-        </a>
+    <div id="userInfo">
+      <img id="avatar" src="" alt="头像">
+      <input type="file" id="fileInput" style="display: none;" />
+      <div id="username">点击修改昵称</div>
+      <button id="logoutBtn">退出登录</button>
     </div>
+  </div>
 
-    <script>
-        $(document).ready(function() {
-            let userId = localStorage.getItem("userid");
+  <div id="tabbar">
+    <a href="javascript:history.back();" class="tab">
+      <img src="https://static.codemao.cn/pickduck/HyaM739syx.jpeg?hash=Ftl4ZEyNDd2xNGxgYNRrrYdyVvv-" alt="首页">
+      <div>首页</div>
+    </a>
+    <a href="#" class="tab active">
+      <img src="https://static.codemao.cn/pickduck/ry2QXncjyl.jpeg?hash=FsNrnWAmpCXwmKfLdfRj0YHV0TBy" alt="我的">
+      <div>我的</div>
+    </a>
+  </div>
 
-            if (userId) {
-                $("#loginBox").hide();
-                $("#userInfo").text("用户ID：" + userId).show();
-            }
+  <script>
+    $(document).ready(function() {
+      let userId = localStorage.getItem("userid");
 
-            $("#loginBtn").click(function() {
-                let emailValue = $("#email").val().trim();
-                let passwordValue = $("#password").val().trim();
+      if (userId) {
+        $("#loginBox").hide();
+        $("#userInfo").show();
 
-                if (!emailValue || !passwordValue) {
-                    alert("请输入账号和密码");
-                    return;
-                }
+        var table2 = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
+        table2.onGetData((json, id, url) => {
+          if (json.fields && json.fields.length > 0) {
+            let user = json.fields[0];
+            $("#avatar").attr("src", user.picture || "https://static2.pgaot.com/default-avatar.png");
+            $("#username").text(user.name || "用户");
+          }
+        });
+        table2.getTableData({
+          page: 1,
+          limit: 1,
+          id: "getTableData",
+          filter: 'createdAt="' + userId + '"'
+        });
 
-                // MD5 加密
-                let hashedPassword = CryptoJS.MD5(passwordValue).toString();
+        // 修改昵称
+        $("#username").click(function() {
+          let newName = prompt("设置昵称");
+          if (newName) {
+            var tablewritename = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
+            let insertConfig = {
+              type: "UPDATE",
+              filter: 'createdAt="' + userId + '"',
+              fields: 'name="' + newName + '"',
+              id: "writename"
+            };
+            tablewritename.setTableData(insertConfig);
+            alert("修改成功");
+            location.reload();
+          }
+        });
 
-                // 实例化数据库查询
-                var table1 = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
+        // 点击头像上传
+        $("#avatar").click(function() {
+          $("#fileInput").click();
+        });
 
-                // 设置数据成功回调函数
-                table1.onGetData((json, id, url) => {
-                    if (json.fields && json.fields.length === 1) {
-                        let userId = json.fields[0].createdAt;
-                        localStorage.setItem("userid", userId);
-                        alert("登录成功");
-                        location.reload();
-                    } else {
-                        alert("账号密码错误");
-                    }
-                });
+        $("#fileInput").change(function() {
+          var file = this.files[0];
+          if (!file) return;
 
-                // 查询数据库
-                table1.getTableData({
-                    page: 1,
-                    limit: 1,
-                    id: "getTableData",
-                    filter: 'mail="' + emailValue + '" and password="' + hashedPassword + '"'
-                });
-            });
+          var formdata = new FormData();
+          formdata.append("file", file);
+          formdata.append("path", "bcx");
 
-            $("#register").click(function() {
-                window.location.href = "web.html?url=" + encodeURIComponent("https://ffeixing.github.io/qjyy/qujia/setup.html");
+          var myHeaders = new Headers();
+          myHeaders.append("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+
+          var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+          };
+
+          fetch("https://api.pgaot.com/user/up_cat_file", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+              if (result.code === 200) {
+                
+                // 更新头像数据
+var tablewritepicture = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
+            let insertConfig = {
+              type: "UPDATE",
+              filter: 'createdAt="' + userId + '"',
+              fields: 'picture="' + result.url + '"',
+              id: "writename"
+            };
+            tablewritepicture.setTableData(insertConfig);
+            alert("修改成功");
+            location.reload();
+
+
+
+
+
+
+
+              } else {
+                alert("头像更新失败：" + result.message);
+              }
+            })
+            .catch(error => {
+              alert("头像更新出错：" + error);
             });
         });
-    </script>
+      }
 
+      $("#loginBtn").click(function() {
+        let emailValue = $("#email").val().trim();
+        let passwordValue = $("#password").val().trim();
 
+        if (!emailValue || !passwordValue) {
+          alert("请输入账号和密码");
+          return;
+        }
 
-    
+        let hashedPassword = CryptoJS.MD5(passwordValue).toString();
+        var table1 = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
+        table1.onGetData((json, id, url) => {
+          if (json.fields && json.fields.length === 1) {
+            let userId = json.fields[0].createdAt;
+            localStorage.setItem("userid", userId);
+            alert("登录成功");
+            location.reload();
+          } else {
+            alert("账号密码错误");
+          }
+        });
 
+        table1.getTableData({
+          page: 1,
+          limit: 1,
+          id: "getTableData",
+          filter: 'mail="' + emailValue + '" and password="' + hashedPassword + '"'
+        });
+      });
 
-    
+      $("#logoutBtn").click(function() {
+        localStorage.removeItem("userid");
+        location.reload();
+      });
 
-    <script>
-
-
-
-
-        
-var plusReady = function (callback) {  
-    if (window.plus) {  
-        callback();  
-    } else {  
-        document.addEventListener('plusready', callback);  
-    }  
-};  
-
-plusReady(function () {  
-    var firstBack = 0;  
-    var handleBack = function () {  
-        var currentWebview = plus.webview.currentWebview();  
-        var topWebview = plus.webview.getTopWebview();  
-        var now = Date.now || function () {  
-            return new Date().getTime();  
-        };  
-
-        currentWebview.canBack(function (evt) {  
-            /**  
-             * 有可后退的历史记录，则后退。  
-             * 否则，关闭当前窗口。  
-             * 如果当前窗口是入口页，那么执行退出的逻辑。  
-             */  
-            if (currentWebview.id === plus.runtime.appid) {  
-                if (!firstBack) {  
-                    firstBack = now();  
-                    plus.nativeUI.toast('再按一次退出应用');  
-
-                    setTimeout(function () {  
-                        firstBack = 0;  
-                    }, 2000);  
-                } else if (now() - firstBack < 2000) {  
-                    plus.runtime.quit();  
-                }  
-            } else {  
-                if (evt.canBack) {  
-                    history.back();  
-                } else {  
-                    currentWebview.close('auto');  
-                }  
-            }  
-        });  
-    };  
-
-    plus.key.addEventListener('backbutton', handleBack);  
-});//返回键处理
-
-    </script>
-
-
-
+      $("#register").click(function() {
+        window.location.href = "web.html?url=" + encodeURIComponent("https://app.qujiayingyong.online/qujia/setup.html");
+      });
+    });
+  </script>
 </body>
 </html>
