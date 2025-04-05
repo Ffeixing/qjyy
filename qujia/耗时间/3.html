@@ -1,0 +1,302 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贪吃蛇挑战</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        #gameCanvas {
+            border: 2px solid #333;
+            background-color: #f0f0f0;
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: grid;
+            grid-template-areas:
+                ". up ."
+                "left down right";
+            gap: 10px;
+            width: 150px;
+            margin: 0 auto;
+        }
+        .control-btn {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .control-btn:active {
+            background-color: #45a049;
+        }
+        #upBtn { grid-area: up; }
+        #leftBtn { grid-area: left; }
+        #rightBtn { grid-area: right; }
+        #downBtn { grid-area: down; }
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+<div>第三关为贪吃蛇挑战，挑战到46！</div>
+        <canvas id="gameCanvas" width="300" height="300"></canvas>
+        <div class="controls">
+            <button class="control-btn" id="upBtn">↑</button>
+            <button class="control-btn" id="leftBtn">←</button>
+            <button class="control-btn" id="rightBtn">→</button>
+            <button class="control-btn" id="downBtn">↓</button>
+        </div>
+        <div class="score">分数：<span id="score">0</span></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const gridSize = 15;
+        const tileCount = canvas.width / gridSize;
+
+        let snake = [
+            { x: 10, y: 10 },
+        ];
+        let food1 = { x: 5, y: 5, score: 1 };
+        let food2 = { x: 15, y: 15, score: Math.floor(Math.random() * 10) + 1 };
+        let dx = 0;
+        let dy = 0;
+        let score = 0;
+        let gameSpeed = 150;
+
+        let penaltyText = null;
+        let penaltyTimer = null;
+
+        function checkCollision() {
+            const head = snake[0];
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    // 碰撞时扣分并显示提示
+                    score = Math.max(0, score - 1);
+                    document.getElementById('score').textContent = score;
+                    
+                    // 显示惩罚文字
+                    penaltyText = {
+                        x: head.x * gridSize + gridSize/2,
+                        y: head.y * gridSize - 10,
+                        alpha: 1.0
+                    };
+                    
+                    // 清除之前的定时器
+                    if (penaltyTimer) clearTimeout(penaltyTimer);
+                    
+                    // 设置新的定时器
+                    penaltyTimer = setTimeout(() => {
+                        penaltyText = null;
+                    }, 1000);
+                    
+                    break;
+                }
+            }
+        }
+
+        function drawGame() {
+            clearCanvas();
+            moveSnake();
+            drawSnake();
+            drawFood();
+            checkCollision();
+            
+            // 绘制惩罚文字
+            if (penaltyText) {
+                ctx.fillStyle = `rgba(255, 0, 0, ${penaltyText.alpha})`;
+                ctx.font = '16px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillText('-1', penaltyText.x, penaltyText.y);
+            }
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = '#f0f0f0';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function moveSnake() {
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+            // 穿墙
+            if (head.x < 0) head.x = tileCount - 1;
+            if (head.x >= tileCount) head.x = 0;
+            if (head.y < 0) head.y = tileCount - 1;
+            if (head.y >= tileCount) head.y = 0;
+
+            snake.unshift(head);
+
+            if (head.x === food1.x && head.y === food1.y || head.x === food2.x && head.y === food2.y) {
+                const foodScore = head.x === food1.x && head.y === food1.y ? food1.score : food2.score;
+                score += foodScore;
+                document.getElementById('score').textContent = score;
+
+                // 根据食物分值增加蛇的长度
+                for (let i = 0; i < foodScore - 1; i++) {
+                    snake.push({ ...snake[snake.length - 1] });
+                }
+
+                generateFood();
+                
+                if (score >= 46) {
+                    setTimeout(() => {
+                        window.location.href = '6.html';
+                    }, 500);
+                }
+            } else {
+                snake.pop();
+            }
+        }
+
+        function drawSnake() {
+            ctx.fillStyle = '#4CAF50';
+            snake.forEach(segment => {
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+        }
+
+        function drawFood() {
+            // 绘制食物1（固定1分，红色）
+            ctx.fillStyle = '#ff0000';
+            ctx.fillRect(food1.x * gridSize, food1.y * gridSize, gridSize - 2, gridSize - 2);
+            
+            // 绘制食物2（随机分值，蓝色）
+            ctx.fillStyle = '#0000ff';
+            ctx.fillRect(food2.x * gridSize, food2.y * gridSize, gridSize - 2, gridSize - 2);
+            
+            // 显示食物2的分值
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(food2.score.toString(), 
+                food2.x * gridSize + gridSize/2, 
+                food2.y * gridSize + gridSize/2);
+        }
+
+        function generateFood() {
+            // 生成食物1的位置
+            food1.x = Math.floor(Math.random() * tileCount);
+            food1.y = Math.floor(Math.random() * tileCount);
+
+            // 生成食物2的位置和分值
+            food2.x = Math.floor(Math.random() * tileCount);
+            food2.y = Math.floor(Math.random() * tileCount);
+            food2.score = Math.floor(Math.random() * 10) + 1;
+
+            // 确保食物不会出现在蛇身上或重叠
+            while (snake.some(segment => 
+                (segment.x === food1.x && segment.y === food1.y) ||
+                (segment.x === food2.x && segment.y === food2.y)) ||
+                (food1.x === food2.x && food1.y === food2.y)) {
+                
+                food1.x = Math.floor(Math.random() * tileCount);
+                food1.y = Math.floor(Math.random() * tileCount);
+                food2.x = Math.floor(Math.random() * tileCount);
+                food2.y = Math.floor(Math.random() * tileCount);
+            }
+        }
+
+        function checkCollision() {
+            const head = snake[0];
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    // 碰撞时扣分并显示提示
+                    score = Math.max(0, score - 1);
+                    document.getElementById('score').textContent = score;
+                    
+                    // 显示惩罚文字
+                    penaltyText = {
+                        x: head.x * gridSize + gridSize/2,
+                        y: head.y * gridSize - 10,
+                        alpha: 1.0
+                    };
+                    
+                    // 清除之前的定时器
+                    if (penaltyTimer) clearTimeout(penaltyTimer);
+                    
+                    // 设置新的定时器
+                    penaltyTimer = setTimeout(() => {
+                        penaltyText = null;
+                    }, 1000);
+                    
+                    break;
+                }
+            }
+        }
+
+        function resetGame() {
+            snake = [{ x: 10, y: 10 }];
+            dx = 0;
+            dy = 0;
+            score = 0;
+            document.getElementById('score').textContent = score;
+            generateFood();
+        }
+
+        function changeDirection(newDx, newDy) {
+            // 防止反向移动
+            if (snake.length > 1 && 
+                (newDx === -dx && newDy === -dy)) {
+                return;
+            }
+            dx = newDx;
+            dy = newDy;
+        }
+
+        // 键盘控制
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowUp':
+                    changeDirection(0, -1);
+                    break;
+                case 'ArrowDown':
+                    changeDirection(0, 1);
+                    break;
+                case 'ArrowLeft':
+                    changeDirection(-1, 0);
+                    break;
+                case 'ArrowRight':
+                    changeDirection(1, 0);
+                    break;
+            }
+        });
+
+        // 屏幕按钮控制
+        document.getElementById('upBtn').addEventListener('click', () => changeDirection(0, -1));
+        document.getElementById('downBtn').addEventListener('click', () => changeDirection(0, 1));
+        document.getElementById('leftBtn').addEventListener('click', () => changeDirection(-1, 0));
+        document.getElementById('rightBtn').addEventListener('click', () => changeDirection(1, 0));
+
+        generateFood();
+        setInterval(drawGame, gameSpeed);
+    </script>
+
+</body></html>

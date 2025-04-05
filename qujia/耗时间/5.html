@@ -1,0 +1,182 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆球点击挑战</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .game-area {
+            width: 400px;
+            height: 300px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .ball {
+            width: 30px;
+            height: 30px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.1s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .ball.negative {
+            background-color: #FF4444;
+        }
+        .ball:hover {
+            transform: scale(1.1);
+        }
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="score"><span id="score">0</span></div>
+        <div class="game-area" id="gameArea"><div class="ball negative" style="left: 106.014726px; top: 200.894802px;">-9</div><div class="ball negative" style="left: 95.426417px; top: 250.087742px;">-8</div><div class="ball" style="left: 229.793665px; top: 80.487743px;">8</div><div class="ball" style="left: 0.041399px; top: 68.236929px;">10</div><div class="ball" style="left: 98.492602px; top: 140.922551px;">8</div><div class="ball" style="left: 53.521315px; top: 98.528323px;">3</div><div class="ball negative" style="left: 76.058709px; top: 255.454302px;">-6</div><div class="ball negative" style="left: 104.938176px; top: 44.903523px;">-1</div><div class="ball" style="left: 347.098372px; top: 91.985359px;">6</div><div class="ball negative" style="left: 197.016073px; top: 17.181577px;">-2</div><div class="ball" style="left: 254.321267px; top: 186.276471px;">0</div><div class="ball negative" style="left: 246.116795px; top: 264.917973px;">-4</div><div class="ball" style="left: 322.286774px; top: 194.416667px;">0</div><div class="ball negative" style="left: 43.07832px; top: 85.546653px;">-2</div><div class="ball negative" style="left: 165.18752px; top: 51.662806px;">-1</div><div class="ball" style="left: 245.525125px; top: 186.166635px;">4</div><div class="ball negative" style="left: 291.681439px; top: 217.960611px;">-2</div><div class="ball negative" style="left: 5.970521px; top: 254.239516px;">-8</div><div class="ball negative" style="left: 252.533252px; top: 69.73678px;">-1</div><div class="ball negative" style="left: 360.410649px; top: 187.070858px;">-1</div></div>
+    </div>
+
+    <script>
+        const gameArea = document.getElementById('gameArea');
+        const scoreElement = document.getElementById('score');
+        let score = 0;
+        const ballCount = 20;  // 修改为20个小球
+        let balls = [];
+
+        function createBall() {
+            const ball = document.createElement('div');
+            ball.className = 'ball';
+            
+            // 随机位置
+            const maxX = gameArea.offsetWidth - 30;
+            const maxY = gameArea.offsetHeight - 30;
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            ball.style.left = x + 'px';
+            ball.style.top = y + 'px';
+            
+            // 随机分数
+            const value = Math.floor(Math.random() * 21) - 10;
+            ball.textContent = value;
+            if (value < 0) {
+                ball.classList.add('negative');
+            }
+            
+            // 随机移动方向和速度
+            const speed = {
+                x: (Math.random() - 0.5) * 2, // 降低基础速度
+                y: (Math.random() - 0.5) * 2  // 降低基础速度
+            };
+            
+            // 保存原始速度
+            const originalSpeed = {
+                x: speed.x,
+                y: speed.y
+            };
+            
+            // 添加鼠标悬停事件
+            ball.addEventListener('mouseenter', () => {
+                // 找到对应的ball对象并停止其移动
+                const ballObj = balls.find(b => b.element === ball);
+                if (ballObj) {
+                    ballObj.speed.x = 0; // 停止移动
+                    ballObj.speed.y = 0; // 停止移动
+                }
+            });
+            
+            ball.addEventListener('mouseleave', () => {
+                // 找到对应的ball对象并恢复其速度
+                const ballObj = balls.find(b => b.element === ball);
+                if (ballObj) {
+                    ballObj.speed.x = originalSpeed.x;
+                    ballObj.speed.y = originalSpeed.y;
+                }
+            });
+            
+            // 点击事件
+            ball.addEventListener('click', () => {
+                score += value;
+                scoreElement.textContent = score;
+                gameArea.removeChild(ball);
+                balls = balls.filter(b => b.element !== ball);
+                
+                // 立即创建新球
+                createBall();
+                
+                // 检查分数
+                if (score === 46) {
+alert("恭喜通关！");
+                    
+                }
+            });
+            
+            gameArea.appendChild(ball);
+            balls.push({ element: ball, x, y, speed, value });
+        }
+
+        function updateBalls() {
+            for (let i = balls.length - 1; i >= 0; i--) {
+                const ball = balls[i];
+                ball.x += ball.speed.x;
+                ball.y += ball.speed.y;
+                
+                // 检查是否移出屏幕
+                if (ball.x < -30 || ball.x > gameArea.offsetWidth + 30 || 
+                    ball.y < -30 || ball.y > gameArea.offsetHeight + 30) {
+                    gameArea.removeChild(ball.element);
+                    balls.splice(i, 1);
+                    createBall();  // 创建新球以保持数量
+                    continue;
+                }
+                
+                // 边界碰撞检测
+                if (ball.x <= 0 || ball.x >= gameArea.offsetWidth - 30) {
+                    ball.speed.x *= -1;
+                    ball.x = Math.max(0, Math.min(ball.x, gameArea.offsetWidth - 30));
+                }
+                if (ball.y <= 0 || ball.y >= gameArea.offsetHeight - 30) {
+                    ball.speed.y *= -1;
+                    ball.y = Math.max(0, Math.min(ball.y, gameArea.offsetHeight - 30));
+                }
+                
+                ball.element.style.left = ball.x + 'px';
+                ball.element.style.top = ball.y + 'px';
+            }
+            
+            requestAnimationFrame(updateBalls);
+        }
+
+        // 初始化游戏
+        for (let i = 0; i < ballCount; i++) {
+            createBall();
+        }
+        updateBalls();
+    </script>
+
+</body></html>
