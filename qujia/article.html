@@ -267,5 +267,55 @@ tableInsert.setTableData(insertConfig);
       setTimeout(loadComments, 1000);
     });
   </script>
+<!-- 图片预览容器 -->
+<div id="imagePreview" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:9999;">
+  <img id="previewImg" src="" style="max-width:100%; max-height:100%; transition: transform 0.3s ease;" />
+</div>
+
+<script>
+  // 图片点击预览功能
+  document.addEventListener("click", function(e) {
+    if (e.target.tagName === "IMG" && e.target.closest(".article-content")) {
+      document.getElementById("previewImg").src = e.target.src;
+      document.getElementById("imagePreview").style.display = "flex";
+    }
+  });
+
+  // 关闭预览
+  document.getElementById("imagePreview").addEventListener("click", function() {
+    this.style.display = "none";
+    document.getElementById("previewImg").style.transform = "scale(1)";
+  });
+
+  // 缩放逻辑
+  let scale = 1;
+  let startDist = 0;
+  const previewImg = document.getElementById("previewImg");
+
+  previewImg.addEventListener("touchstart", function(e) {
+    if (e.touches.length === 2) {
+      startDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    }
+  });
+
+  previewImg.addEventListener("touchmove", function(e) {
+    if (e.touches.length === 2) {
+      e.preventDefault(); // 防止页面滚动
+      let moveDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      let newScale = scale * (moveDist / startDist);
+      previewImg.style.transform = `scale(${Math.min(Math.max(newScale, 1), 3)})`;
+    }
+  });
+
+  previewImg.addEventListener("touchend", function(e) {
+    scale = parseFloat(previewImg.style.transform.replace("scale(", "").replace(")", "")) || 1;
+  });
+</script>
 </body>
 </html>
