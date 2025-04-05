@@ -1,0 +1,126 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画笔涂色挑战</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            cursor: crosshair;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .volume-bar {
+            width: 400px;
+            height: 60px;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin: 20px auto;
+            position: relative;
+        }
+        #drawCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 5px;
+        }
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+<div>第四关涂满46挑战</div>
+        <div class="score"><span id="score">2</span></div>
+        <div class="volume-bar">
+            <canvas id="drawCanvas" width="404" height="64"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('drawCanvas');
+        const ctx = canvas.getContext('2d');
+        const volumeBar = document.querySelector('.volume-bar');
+        const scoreElement = document.getElementById('score');
+        let isDrawing = false;
+
+        // 设置画布大小与音量条相同
+        canvas.width = volumeBar.offsetWidth;
+        canvas.height = volumeBar.offsetHeight;
+
+        // 设置画布背景为白色
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 鼠标事件监听
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
+
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(x, y, 10, 0, Math.PI * 2);
+            ctx.fill();
+
+            updateScore();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function updateScore() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const pixels = imageData.data;
+            let blackPixels = 0;
+            let totalPixels = pixels.length / 4;
+
+            // 计算黑色像素的数量
+            for (let i = 0; i < pixels.length; i += 4) {
+                if (pixels[i] === 0 && pixels[i + 1] === 0 && pixels[i + 2] === 0) {
+                    blackPixels++;
+                }
+            }
+
+            // 计算黑色像素占比并更新分数
+            const score = Math.round((blackPixels / totalPixels) * 100);
+            scoreElement.textContent = score;
+
+            // 检查是否达到46分
+            if (score === 46) {
+                setTimeout(() => {
+                    window.location.href = '5.html';
+                }, 500);
+            }
+        }
+    </script>
+
+</body></html>
