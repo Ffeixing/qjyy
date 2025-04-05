@@ -1,0 +1,77 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆周率挑战</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+<div>"耗时间"第一关为挑战圆周率，挑战46！</div>
+        <input type="text" id="piInput" placeholder="输入圆周率...">
+        <p class="score"><span id="score">0</span></p>
+    </div>
+
+    <script>
+        const PI = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
+        let currentScore = 0;
+        
+        document.getElementById('piInput').addEventListener('input', function() {
+            const input = this.value.trim();
+            
+            let correctDigits = 0;
+            for (let i = 0; i < input.length && i < PI.length; i++) {
+                if (input[i] === PI[i]) {
+                    correctDigits++;
+                } else {
+                    break;
+                }
+            }
+            
+            currentScore = correctDigits;
+            
+            document.getElementById('score').textContent = currentScore;
+            
+            if (currentScore >= 46) {
+                setTimeout(() => {
+                    window.location.href = '2.html';
+                }, 500);
+            }
+        });
+    </script>
+
+</body></html>
