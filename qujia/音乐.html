@@ -68,7 +68,12 @@ background: url('https://static.codemao.cn/pickduck/B1SDibh61g.jpeg?hash=Fogfp5v
    
     <script>
         function openWeb(url) {
-            window.location.href = 'web.html?url=' + encodeURIComponent(url);
+
+
+
+
+
+            window.location.href = 'article.html?url=' + encodeURIComponent(url)+= `&user=${userId}`;
         }
 
         // 查询数据库
