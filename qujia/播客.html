@@ -68,8 +68,8 @@ background: url('https://static.codemao.cn/pickduck/BJnyAWnTye.jpeg?hash=FkUIk3j
    
     <script>
         function openWeb(url) {
-            window.location.href = 'web.html?url=' + encodeURIComponent(url);
-        }
+    window.location.href = 'article.html?id=' + encodeURIComponent(url) + '&user=' + localStorage.getItem('userid');
+}
 
         // 查询数据库
         var table1 = new pgdbs(dbs_56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0);
@@ -80,7 +80,7 @@ background: url('https://static.codemao.cn/pickduck/BJnyAWnTye.jpeg?hash=FkUIk3j
             json.fields.forEach(item => {
                 var div = document.createElement("div");
                 div.className = "dynamic-item";
-                div.innerHTML = `<img src="${item.picture}" onclick="openWeb('https://app.qujiayingyong.online/qujia/article.html?id=${item.createdAt}')">
+                div.innerHTML = `<img src="${item.picture}" onclick="openWeb('${item.createdAt}')">
                                  <p>${item.title}</p>`;
                 container.appendChild(div);
             });
