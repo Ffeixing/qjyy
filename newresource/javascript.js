@@ -61,7 +61,15 @@ document.addEventListener('DOMContentLoaded', function() {
             { title: " 图片马赛克", url: "http://tutieshi.com/mosaic/", imageUrl: "https://via.placeholder.com/150/222222" },
             { title: " 朋友圈九宫格", url: "http://tutieshi.com/tools/gongge2", imageUrl: "https://via.placeholder.com/150/111111" },
             { title: " 图片转Base64", url: "http://tutieshi.com/tools/imgToBase64", imageUrl: "https://via.placeholder.com/150/DDDDDD" },
-            
+            { title: " 一键抠图", url: "http://remove.photos", imageUrl: "https://static.codemao.cn/pickduck/S1_YwIPAyx.jpeg?hash=FonqIoBKgeHorfpf4nwbw64dItkE" },
+            { title: " 一键文字识别", url: "https://remove.photos/zh-cn/image-to-text", imageUrl: "https://static.codemao.cn/pickduck/S1_YwIPAyx.jpeg?hash=FonqIoBKgeHorfpf4nwbw64dItkE" },
+             { title: "在线消除笔", url: "https://remove.photos/zh-cn/remove-unwanted-object", imageUrl: "https://static.codemao.cn/pickduck/S1_YwIPAyx.jpeg?hash=FonqIoBKgeHorfpf4nwbw64dItkE" },
+             { title: " 黑白图片一键上色", url: "https://remove.photos/zh-cn/colorize", imageUrl: "https://static.codemao.cn/pickduck/S1_YwIPAyx.jpeg?hash=FonqIoBKgeHorfpf4nwbw64dItkE" },
+             { title: " 图片格式转换", url: "https://remove.photos/zh-cn/image-converter", imageUrl: "https://static.codemao.cn/pickduck/S1_YwIPAyx.jpeg?hash=FonqIoBKgeHorfpf4nwbw64dItkE" },
+             { title: " 增强色彩", url: "https://remove.photos/zh-cn/enhance-color", imageUrl: "https://static.codemao.cn/pickduck/S1_YwIPAyx.jpeg?hash=FonqIoBKgeHorfpf4nwbw64dItkE" },
+             { title: " AI无损放大", url: "https://remove.photos/zh-cn/super-resolution", imageUrl: "https://static.codemao.cn/pickduck/S1_YwIPAyx.jpeg?hash=FonqIoBKgeHorfpf4nwbw64dItkE" },
+             { title: " 一键替换新天空", url: "https://remove.photos/zh-cn/remove-sky", imageUrl: "https://static.codemao.cn/pickduck/S1_YwIPAyx.jpeg?hash=FonqIoBKgeHorfpf4nwbw64dItkE" },
+             { title: " 一键擦除图片前景", url: "https://remove.photos/zh-cn/remove-foreground", imageUrl: "https://static.codemao.cn/pickduck/S1_YwIPAyx.jpeg?hash=FonqIoBKgeHorfpf4nwbw64dItkE" },
         ],
 
         "文档处理工具": [
