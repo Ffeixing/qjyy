@@ -14,40 +14,14 @@ const 展示 = [
     
     {
         icon: 'https://static.codemao.cn/coco/player/unstable/ry1lmVmBR.image/png?hash=FhiUR8VAw8GzPW5pUBl_WRAgo7Pq',
-        name: '加载数据失败',
+        name: '浏览器版本过低，云数据加载失败',
         link: 'https://wwpa.lanzouo.com/iPycv2mlyhah',
         pwd: '23yg',
         简介: '浏览器版本过低加载失败',
         图片一: 'https://static.codemao.cn/coco/player/unstable/rkzG7E7B0.image/jpeg?hash=FgwGIrFRb7UY-TcvEZZQC-gkNZc0',
         图片二: 'https://static.codemao.cn/coco/player/unstable/B1IMXNmSA.image/jpeg?hash=Flk95183JykeiVGXVsUDdfxMfYSe'
     },
-    {
-        icon: 'https://static.codemao.cn/coco/player/unstable/ry1lmVmBR.image/png?hash=FhiUR8VAw8GzPW5pUBl_WRAgo7Pq',
-        name: '「推广」趣加应用0.3.4',
-        link: 'https://wwpa.lanzouo.com/ilRrX28trkmj',
-        pwd: '7mne',
-        简介: '【安卓App】趣加应用--致力于优质资源分享！！下载App吧，上千资源、分享资源、发帖子、互动交流…发现无限精彩，尽在趣加应用App～',
-        图片一: 'https://static.codemao.cn/coco/player/unstable/rkzG7E7B0.image/jpeg?hash=FgwGIrFRb7UY-TcvEZZQC-gkNZc0',
-        图片二: 'https://static.codemao.cn/coco/player/unstable/B1IMXNmSA.image/jpeg?hash=Flk95183JykeiVGXVsUDdfxMfYSe'
-    },
-    {
-        icon: 'https://static.codemao.cn/coco/player/unstable/ry1lmVmBR.image/png?hash=FhiUR8VAw8GzPW5pUBl_WRAgo7Pq',
-        name: '「推广」趣加应用0.3.4',
-        link: 'https://wwpa.lanzouo.com/ilRrX28trkmj',
-        pwd: '7mne',
-        简介: '【安卓App】趣加应用--致力于优质资源分享！！下载App吧，上千资源、分享资源、发帖子、互动交流…发现无限精彩，尽在趣加应用App～',
-        图片一: 'https://static.codemao.cn/coco/player/unstable/rkzG7E7B0.image/jpeg?hash=FgwGIrFRb7UY-TcvEZZQC-gkNZc0',
-        图片二: 'https://static.codemao.cn/coco/player/unstable/B1IMXNmSA.image/jpeg?hash=Flk95183JykeiVGXVsUDdfxMfYSe'
-    },
-    {
-        icon: 'https://static.codemao.cn/coco/player/unstable/ry1lmVmBR.image/png?hash=FhiUR8VAw8GzPW5pUBl_WRAgo7Pq',
-        name: '「推广」趣加应用0.3.4',
-        link: 'https://wwpa.lanzouo.com/ilRrX28trkmj',
-        pwd: '7mne',
-        简介: '【安卓App】趣加应用--致力于优质资源分享！！下载App吧，上千资源、分享资源、发帖子、互动交流…发现无限精彩，尽在趣加应用App～',
-        图片一: 'https://static.codemao.cn/coco/player/unstable/rkzG7E7B0.image/jpeg?hash=FgwGIrFRb7UY-TcvEZZQC-gkNZc0',
-        图片二: 'https://static.codemao.cn/coco/player/unstable/B1IMXNmSA.image/jpeg?hash=Flk95183JykeiVGXVsUDdfxMfYSe'
-    },
+    
     {
         icon: 'https://static.codemao.cn/coco/player/unstable/H14dzL6gR.image/jpeg?hash=FrJI06kduFrCkLh2wXFJ9UQWAMZI',
         name: '快对5.0',
