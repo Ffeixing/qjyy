@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>趣加音乐v0.0.8</title>
+    <style>
+
+
+
+
+
+        .mobile-notice {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            padding: 20px;
+        }
+        .continue-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4c54af;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .continue-button:hover {
+            background-color: #5445a0;
+        }
+    
+
+
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+        
+        .iframe-container {
+            width: calc(9 / 16 * 100vh);
+            height: 100vh;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+ <script>
+        window.onload = function() {
+            // 检测是否为移动设备
+            function isMobile() {
+                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            }
+            
+            if (!isMobile()) {
+                var notice = document.createElement('div');
+                notice.className = 'mobile-notice';
+                notice.innerHTML = `
+                    <div>不支持此设备，请在iOS上安装本软件</div>
+                    
+                `;
+                document.body.appendChild(notice);
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="iframe-container">
+        <iframe src="https://coco.codemao.cn/editor/player/265471466?channel=h5" id="responsive-iframe"></iframe>
+    </div>
+
+   <script>
+
+
+
+
+        // 设置移动设备UA
+        const iframe = document.getElementById('responsive-iframe');
+        iframe.addEventListener('load', function() {
+            const script = document.createElement('script');
+            script.textContent = `
+                Object.defineProperty(navigator, 'userAgent', {
+                    value: 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
+                    configurable: false,
+                    writable: false
+                });
+            `;
+            iframe.contentDocument.head.appendChild(script);
+        });
+    </script>
+</body>
+</html>
