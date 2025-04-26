@@ -10,14 +10,130 @@
   <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76.js"></script>
   <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; display: flex; flex-direction: column; height: 100vh; }
-    #content { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 18px; }
-    input { width: 80%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
-    button { width: 85%; padding: 10px; margin-top: 10px; background-color: blue; color: white; border: none; border-radius: 5px; cursor: pointer; }
-    button:hover { background-color: darkblue; }
-    #register { margin-top: 10px; color: blue; text-decoration: underline; cursor: pointer; }
+<style>
+  
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding-bottom: 60px;
+      background: #f9f9f9;
+    }
+
+    #topbar {
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    #avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    #username {
+      font-size: 22px;
+      font-weight: bold;
+      margin-left: 15px;
+      cursor: pointer;
+    }
+
+    #settingsBtn {
+      margin-left: auto;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+    }
+
+    #settingsMenu {
+      position: absolute;
+      top: 130px;
+      right: 20px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      display: none;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    #settingsMenu button {
+      padding: 12px 18px;
+      width: 100%;
+      text-align: left;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #settingsMenu button:hover {
+      background: #f5f5f5;
+    }
+
+    #myPostsWrapper {
+      margin: 30px 20px;
+      padding: 20px;
+      background: #e6f3ff;
+      border-radius: 15px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    #myPostsWrapper h2 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    #myPostsContent {
+      font-size: 16px;
+      color: gray;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    #loginBox {
+      margin: 100px 20px 30px;
+      background: #e6f3ff;
+      padding: 30px 20px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    #loginBox input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    #loginBox button {
+      width: 90%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #loginBox button:hover {
+      background-color: #0056b3;
+    }
+
+    #register {
+      margin-top: 12px;
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
     #tabbar {
       position: fixed;
       bottom: 0;
@@ -28,46 +144,73 @@
       border-top: 1px solid #ddd;
       padding: 10px 0;
     }
-    .tab { flex: 1; text-align: center; font-size: 14px; text-decoration: none; color: gray; }
-    .tab img { width: 24px; height: 24px; display: block; margin: 0 auto 5px; }
-    .active { color: blue; font-weight: bold; }
-    #userInfo { text-align: center; display: none; }
-    #avatar { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px; object-fit: cover; cursor: pointer; }
-    #username { font-size: 20px; margin-bottom: 15px; cursor: pointer; text-decoration: underline; }
-    #logoutBtn { background-color: red; width: 85%; margin-top: 20px; }
-    #logoutBtn:hover { background-color: darkred; }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      font-size: 14px;
+      text-decoration: none;
+      color: gray;
+    }
+
+    .tab img {
+      width: 24px;
+      height: 24px;
+      display: block;
+      margin: 0 auto 5px;
+    }
+
+    .active {
+      color: blue;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
+<div id="content">
 
-  <div id="content">
-    <div id="loginBox">
-      <input type="text" id="email" placeholder="请输入账号">
-      <input type="password" id="password" placeholder="请输入密码">
-      <button id="loginBtn">登录</button>
-      <div id="register">立即注册</div>
-    </div>
+<div id="loginBox">
+  <input type="text" id="email" placeholder="请输入账号">
+  <input type="password" id="password" placeholder="请输入密码">
+  <button id="loginBtn">登录</button>
+  <div id="register">立即注册</div>
+</div>
 
-    <div id="userInfo">
-      <img id="avatar" src="" alt="头像">
-      <input type="file" id="fileInput" style="display: none;" />
-      <div id="username">点击修改昵称</div>
-      <button id="logoutBtn">退出登录</button>
-    </div>
+<div id="userInfo" style="display: none;">
+  <div id="topbar">
+    <img id="avatar" src="" alt="头像">
+    <div id="username">点击修改昵称</div>
+    <img id="settingsBtn" src="https://static.codemao.cn/pickduck/B1OsjsYJle.png?hash=FnivydRSkrP60S0G4eZbHf-QIewV" alt="设置">
   </div>
 
-  <div id="tabbar">
-    <a href="javascript:history.back();" class="tab">
-      <img src="https://static.codemao.cn/pickduck/HyaM739syx.jpeg?hash=Ftl4ZEyNDd2xNGxgYNRrrYdyVvv-" alt="首页">
-      <div>首页</div>
-    </a>
-    <a href="#" class="tab active">
-      <img src="https://static.codemao.cn/pickduck/ry2QXncjyl.jpeg?hash=FsNrnWAmpCXwmKfLdfRj0YHV0TBy" alt="我的">
-      <div>我的</div>
-    </a>
+  <div id="settingsMenu">
+    <button id="logoutBtn">退出登录</button>
   </div>
 
-  <script>
+  <input type="file" id="fileInput" style="display: none;" />
+
+  <div id="myPostsWrapper">
+    <h2>我的动态</h2>
+    <div id="myPostsContent">敬请期待</div>
+  </div>
+</div>
+
+
+
+</div>
+
+<div id="tabbar">
+  <a href="javascript:history.back();" class="tab">
+    <img src="https://static.codemao.cn/pickduck/HyaM739syx.jpeg?hash=Ftl4ZEyNDd2xNGxgYNRrrYdyVvv-" alt="首页">
+    <div>首页</div>
+  </a>
+  <a href="#" class="tab active">
+    <img src="https://static.codemao.cn/pickduck/ry2QXncjyl.jpeg?hash=FsNrnWAmpCXwmKfLdfRj0YHV0TBy" alt="我的">
+    <div>我的</div>
+  </a>
+</div>
+
+<script>
     $(document).ready(function() {
       let userId = localStorage.getItem("userid");
 
@@ -75,20 +218,25 @@
         $("#loginBox").hide();
         $("#userInfo").show();
 
-        var table2 = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
-        table2.onGetData((json, id, url) => {
-          if (json.fields && json.fields.length > 0) {
-            let user = json.fields[0];
-            $("#avatar").attr("src", user.picture || "https://static2.pgaot.com/default-avatar.png");
-            $("#username").text(user.name || "用户");
-          }
-        });
-        table2.getTableData({
-          page: 1,
-          limit: 1,
-          id: "getTableData",
-          filter: 'createdAt="' + userId + '"'
-        });
+
+ var table2 = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
+      table2.onGetData((json) => {
+			
+        if (json.fields && json.fields.length > 0) {
+          let user = json.fields[0];
+          $("#avatar").attr("src", user.picture || "https://static2.pgaot.com/default-avatar.png");
+          $("#username").text(user.name || "用户");
+        }
+      });
+
+      table2.getTableData({
+        page: 1,
+        limit: 1,
+        id: "getTableData",
+        filter: 'createdAt="' + userId + '"'
+      });
+
+     
 
         // 修改昵称
         $("#username").click(function() {
@@ -228,7 +376,21 @@ var nexttablewritepicture = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc30069062
       $("#register").click(function() {
         window.location.href = "web.html?url=" + encodeURIComponent("https://app.qujiayingyong.online/qujia/setup.html");
       });
+    
+  
+
+
+
+    $("#settingsBtn").click(function () {
+      $("#settingsMenu").toggle();
     });
-  </script>
+
+    $("#logoutBtn").click(function () {
+      localStorage.removeItem("userid");
+      location.reload();
+    });
+  });
+</script>
+
 </body>
 </html>
