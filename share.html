@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pgaot接口文件上传至编程猫服务器生成直链</title>
+</head>
+<body>
+
+  <h2>文件上传至编程猫对象存储</h2>
+  <input type="file" id="fileInput" />
+  <div id="result" style="display: none;">
+    <span id="url"></span>
+  </div>
+
+<script>
+  document.getElementById('fileInput').addEventListener('change', function () {
+    var fileInput = document.getElementById('fileInput');
+    if (fileInput.files.length === 0) {
+      return;
+    }
+
+    var file = fileInput.files[0];
+    var formdata = new FormData();
+    formdata.append("file", file);
+    formdata.append("path", "bcx");
+
+    var myHeaders = new Headers();
+    myHeaders.append("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch("https://api.pgaot.com/user/up_cat_file", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result.code === 200) {
+          document.getElementById('url').innerText = result.url;
+          document.getElementById('result').style.display = 'block';
+        }
+      });
+  });
+</script>
+
+</body>
+</html>

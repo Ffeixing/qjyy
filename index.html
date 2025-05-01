@@ -27,8 +27,8 @@
     </div>
 
 <div class="button-slider">
-  
-  <button id="star">最新</button>
+    <button id="news">最新</button>
+  <button id="star">最热</button>
   <button id="musics">影视音乐</button>
   <button id="tools">实用工具</button>
   <button id="studys">学习必备</button>
@@ -78,7 +78,7 @@
                 if (email) {
                     // 如果 cookie 中有邮箱数据，显示提示
                     event.preventDefault();
-                    alert("当前账号已登录，网页端个人主页还在开发中，请先下载App");
+                    alert("网页版不支持管理内容");
                 } else {
                     // 否则跳转至 login.html
                     window.location.href = "login.html";
@@ -180,7 +180,7 @@
 
 document.getElementById('star').addEventListener('click', function() {
     // 在这里执行点击时的操作
-        table1.getTableData({page: 1, limit: 1000, id: 'getTableData',filter: '是否推荐!="审核未通过"'});
+        table1.getTableData({page: 1, limit: 1000, id: 'getTableData',filter: '星标="星标"'});
 });
 
 document.getElementById('news').addEventListener('click', function() {
@@ -219,8 +219,14 @@ document.getElementById('tools').addEventListener('click', function() {
 
 
 
+<script>
+document.getElementById('searchInput').addEventListener('input', function(e) {
+alert("你输入了: " + inputValue);
+    const searchTerm = e.target.value.toLowerCase();
+    const filteredData = 展示.filter(item => item.name.toLowerCase().includes(searchTerm));
+// 搜索框按下回车时提示输入内容
 
-
+</script>
 
 
 </script>
@@ -228,6 +234,6 @@ document.getElementById('tools').addEventListener('click', function() {
 
 <div>Copyright © 2025 趣味加倍科技. All Rights Reserved</div>
     <!-- 应用数据处理的 JS 脚本 -->
-    <script src="script.js"></script>
+    
 </body>
 </html>

@@ -6,8 +6,6 @@
 
 
 
-
-
 // 模拟的展示数据，每一项为字典，包含图标、名称、下载链接、密码、简介、图片一和图片二
 const 展示 = [
 
@@ -156,10 +154,6 @@ function initAppList() {
     });
 }
 
-// 搜索功能
-document.getElementById('searchInput').addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase();
-    const filteredData = 展示.filter(item => item.name.toLowerCase().includes(searchTerm));
     
     // 更新列表显示
     const appList = document.getElementById('appList');
@@ -198,7 +192,6 @@ document.getElementById('searchInput').addEventListener('input', function(e) {
 
 // 初始化时显示所有应用
 initAppList();
-
 
 
 
