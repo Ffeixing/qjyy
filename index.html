@@ -145,7 +145,7 @@
     });
 
     // 调用获取数据表方法，将结果返回到自定义的成功回调函数
-    table1.getTableData({page: 1, limit: 1000, id: 'getTableData',filter: '星标排行="星标"'});
+    table1.getTableData({page: 1, limit: 9999, id: 'getTableData',filter: '是否推荐!="审核未通过"'});
 
     // 更新页面展示的函数
     function updateDisplay() {
