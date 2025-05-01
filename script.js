@@ -14,7 +14,7 @@ const 展示 = [
     
     {
         icon: 'https://static.codemao.cn/coco/player/unstable/ry1lmVmBR.image/png?hash=FhiUR8VAw8GzPW5pUBl_WRAgo7Pq',
-        name: '浏览器版本过低，云数据加载失败',
+        name: '浏览器版本过低，或网络不好，云数据加载失败',
         link: 'https://wwpa.lanzouo.com/iPycv2mlyhah',
         pwd: '23yg',
         简介: '浏览器版本过低加载失败',
