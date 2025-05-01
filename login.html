@@ -14,13 +14,6 @@
         // 实例化数据表
         var table1 = new pgdbs(dbs_21add8e7caad2dd6f75d13aaa2872a571d36739a22ff91e88d047261f8fec421);
         
-        // 设置 Cookie 的函数（有效期为永久）
-        function setCookie(name, value) {
-            const date = new Date();
-            date.setFullYear(date.getFullYear() + 50); // 设置 50 年后过期
-            document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
-        }
-
         // 点击登录按钮时执行验证逻辑
         function handleLogin() {
             var username = document.getElementById("username").value;
@@ -44,10 +37,10 @@
                 var avatar = userData["头像"];
                 var nickname = userData["昵称"];
 
-                // 将数据存入 Cookie，设置为永久有效
-                setCookie("email", email);
-                setCookie("avatar", avatar);
-                setCookie("nickname", nickname);
+                // 将数据存入 cookie
+                document.cookie = "email=" + email;
+                document.cookie = "avatar=" + avatar;
+                document.cookie = "nickname=" + nickname;
 
                 // 提示登录成功并跳转
                 alert("登录成功！");
@@ -59,9 +52,16 @@
     </script>
 </head>
 <body>
-    <div class="header-image">
-        <img src="https://creation.codemao.cn/716/appcraft/IMAGE_PXpyfl3Pb_1719185625141.jpeg" alt="趣加应用头图">
-    </div>
+
+<div class="top-banner">
+  <img src="https://creation.codemao.cn/716/appcraft/IMAGE_PXpyfl3Pb_1719185625141.jpeg" 
+       alt="趣加应用优享版" 
+       class="full-width-img">
+</div>
+
+
+
+
 
     <!-- 登录表单 -->
     <div class="login-container">
@@ -72,6 +72,9 @@
         </form>
     </div>
 
-    <div>Copyright © 2024 趣味加倍科技. All Rights Reserved</div>
+
+
+
+
 </body>
 </html>

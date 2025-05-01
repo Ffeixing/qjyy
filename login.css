@@ -1,3 +1,12 @@
+.full-width-img {
+  width: 100%;
+  display: block;
+  height: auto;
+  border-radius: 12px; /* 圆角效果 */
+  box-shadow: 0 0 15px rgba(255,255,255,0.5); /* 发光效果 */
+  margin-bottom: 15px; /* 与下方内容的间距 */
+}
+
 /* 全局样式 */
 * {
     margin: 0;
@@ -15,12 +24,28 @@ body {
     min-height: 100vh;
 }
 
-/* 头图样式 */
+/* 头图样式 下面是新的，上面的没用了*/
 .header-image img {
     width: 100vw; /* 图片宽度适应屏幕 */
     height: auto; /* 高度根据宽度自动调整 */
     display: block;
 }
+
+/* 顶部图片样式 */
+.top-banner {
+  width: 100%;
+  overflow: hidden; /* 防止图片溢出 */
+  margin: 0;
+  padding: 0;
+}
+
+.full-width-img {
+  width: 100%;
+  display: block; /* 去除图片底部间隙 */
+  height: auto; /* 保持宽高比 */
+  border: 0; /* 移除边框 */
+}
+
 
 /* 登录容器样式 */
 .login-container {

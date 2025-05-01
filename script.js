@@ -6,20 +6,18 @@
 
 
 
+
 // 模拟的展示数据，每一项为字典，包含图标、名称、下载链接、密码、简介、图片一和图片二
 const 展示 = [
-
-    
     {
         icon: 'https://static.codemao.cn/coco/player/unstable/ry1lmVmBR.image/png?hash=FhiUR8VAw8GzPW5pUBl_WRAgo7Pq',
-        name: '浏览器版本过低，或网络不好，云数据加载失败',
-        link: 'https://wwpa.lanzouo.com/iPycv2mlyhah',
-        pwd: '23yg',
-        简介: '浏览器版本过低加载失败',
+        name: '网络不好或浏览器版本过低，云数据加载失败',
+        link: 'https://wwpa.lanzouo.com/ilRrX28trkmj',
+        pwd: '7mne',
+        简介: '【安卓App】趣加应用--致力于优质资源分享！！下载App吧，上千资源、分享资源、发帖子、互动交流…发现无限精彩，尽在趣加应用App～',
         图片一: 'https://static.codemao.cn/coco/player/unstable/rkzG7E7B0.image/jpeg?hash=FgwGIrFRb7UY-TcvEZZQC-gkNZc0',
         图片二: 'https://static.codemao.cn/coco/player/unstable/B1IMXNmSA.image/jpeg?hash=Flk95183JykeiVGXVsUDdfxMfYSe'
     },
-    
     {
         icon: 'https://static.codemao.cn/coco/player/unstable/H14dzL6gR.image/jpeg?hash=FrJI06kduFrCkLh2wXFJ9UQWAMZI',
         name: '快对5.0',
@@ -154,6 +152,10 @@ function initAppList() {
     });
 }
 
+// 搜索功能
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const filteredData = 展示.filter(item => item.name.toLowerCase().includes(searchTerm));
     
     // 更新列表显示
     const appList = document.getElementById('appList');
@@ -192,6 +194,3 @@ function initAppList() {
 
 // 初始化时显示所有应用
 initAppList();
-
-
-
