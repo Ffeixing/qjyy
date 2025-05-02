@@ -39,21 +39,19 @@ document.addEventListener('DOMContentLoaded', function() {
             { title: "Premiere Pro 2021", url: "https://www.123684.com/s/sBhZVv-V3c4H", imageUrl: "https://static.codemao.cn/pickduck/Hkvw-pwI1x.jpeg?hash=FhWrCkQd7MDI4v02nq6-6g9oWcuo" },
             { title: "Premiere Pro 2022", url: "https://www.123684.com/s/sBhZVv-Hhc4H", imageUrl: "https://static.codemao.cn/pickduck/Hkvw-pwI1x.jpeg?hash=FhWrCkQd7MDI4v02nq6-6g9oWcuo" },
             { title: "Premiere Pro 2023", url: "", imageUrl: "https://static.codemao.cn/pickduck/Hkvw-pwI1x.jpeg?hash=FhWrCkQd7MDI4v02nq6-6g9oWcuo" },
-            { title: " Adobe After Effects 2017", url: "即将补全", imageUrl: "https://static.codemao.cn/pickduck/r1msWaPU1e.jpeg?hash=FuzisC8mEcjjzmOuV57EB8aMMG--" },
-            { title: " Adobe After Effects 2018", url: "即将补全", imageUrl: "https://static.codemao.cn/pickduck/r1msWaPU1e.jpeg?hash=FuzisC8mEcjjzmOuV57EB8aMMG--" },
-            { title: " Adobe After Effects 2019", url: "即将补全", imageUrl: "https://static.codemao.cn/pickduck/r1msWaPU1e.jpeg?hash=FuzisC8mEcjjzmOuV57EB8aMMG--" },
-            { title: " Adobe After Effects 2020", url: "即将补全", imageUrl: "https://static.codemao.cn/pickduck/r1msWaPU1e.jpeg?hash=FuzisC8mEcjjzmOuV57EB8aMMG--" },
-            { title: " Adobe After Effects 2021", url: "即将补全", imageUrl: "https://static.codemao.cn/pickduck/r1msWaPU1e.jpeg?hash=FuzisC8mEcjjzmOuV57EB8aMMG--" },
             { title: " Adobe After Effects 2022", url: "https://www.123684.com/s/sBhZVv-hhc4H", imageUrl: "https://static.codemao.cn/pickduck/r1msWaPU1e.jpeg?hash=FuzisC8mEcjjzmOuV57EB8aMMG--" },
             { title: " Adobe After Effects 2023", url: "https://www.123684.com/s/sBhZVv-hhc4H", imageUrl: "https://static.codemao.cn/pickduck/r1msWaPU1e.jpeg?hash=FuzisC8mEcjjzmOuV57EB8aMMG--" },
         ],
         "音视频处理工具": [
+            { title: "Tiniwow--免费PDF、视频、图像和其他在线工具", url: "https://tinywow.com", imageUrl: "https://static.codemao.cn/pickduck/ry0L1obllx.jpeg?hash=Fvm1JMDJNalNkWcevNtbsbjndp5x" },
             { title: "MP4转MP3", url: "https://www.mp4tomp3.org/", imageUrl: "https://via.placeholder.com/150/999999" },
             { title: "MP3升降调", url: "https://audio.worthsee.com/pitch/format-MP3", imageUrl: "https://via.placeholder.com/150/999999" },
             { title: "视频转GIF", url: "http://tutieshi.com/video/", imageUrl: "https://via.placeholder.com/150/888888" },
             { title: "m3u8视频在线提取", url: "http://tutieshi.com/tools/imgToBase64", imageUrl: "https://via.placeholder.com/150/777777" }
         ],
         "图片处理工具": [
+            
+            { title: "Tiniwow--免费PDF、视频、图像和其他在线工具", url: "https://tinywow.com", imageUrl: "https://static.codemao.cn/pickduck/ry0L1obllx.jpeg?hash=Fvm1JMDJNalNkWcevNtbsbjndp5x" },
             { title: "图片压缩", url: "http://tutieshi.com", imageUrl: "https://via.placeholder.com/150/666666" },
             { title: "视频转GIF", url: "http://tutieshi.com/video/", imageUrl: "https://via.placeholder.com/150/555555" },
             { title: " GIF合成", url: "http://tutieshi.com/compose/", imageUrl: "https://via.placeholder.com/150/444444" },
@@ -73,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
 
         "文档处理工具": [
+            
+            { title: "Tiniwow--免费PDF、视频、图像和其他在线工具", url: "https://tinywow.com", imageUrl: "https://static.codemao.cn/pickduck/ry0L1obllx.jpeg?hash=Fvm1JMDJNalNkWcevNtbsbjndp5x" },
             { title: "PDF转PPT", url: "https://www.pdfpai.com/pdf-to-powerpoint", imageUrl: "https://www.pdfpai.com/statics/images/functionToPPTX.png" },
             { title: "PDF转Word", url: "https://www.pdfpai.com/pdf-to-word", imageUrl: "https://www.pdfpai.com/statics/images/funcation_title_to_word.png" },
             { title: "PDF转Excel", url: "https://www.pdfpai.com/pdf-to-excel", imageUrl: "https://www.pdfpai.com/statics/images/functionToExcel.png" },
