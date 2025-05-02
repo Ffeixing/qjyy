@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
         ],
         "常见问题": [
+            { title: "下载1G以上大文件", url: "https://blog.csdn.net/a13879442471/article/details/146482725", imageUrl: "" },
             { title: "检测到病毒无法下载", url: "http://app.qujiayingyong.online/other/question/", imageUrl: "" },
             { title: "「趣加应用APP」致力于优质安卓资源分享", url: "https://qjyy.mysxl.cn", imageUrl: "" }
             
