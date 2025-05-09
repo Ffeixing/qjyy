@@ -149,6 +149,22 @@
   </div>
   
   <script>
+// 在 script 的最前面，先定义一个检测和解码函数
+function isBase64(str) {
+  if (!str || typeof str !== 'string') return false;
+  if (str.length % 4 !== 0) return false;
+  return /^[A-Za-z0-9+/]+={0,2}$/.test(str);
+}
+
+// 把 atob 出来的“字节串”转成正常 JS 字符串
+function base64DecodeUnicode(str) {
+  // atob → 逃逸 → 解 URI
+  return decodeURIComponent(escape(atob(str)));
+}
+
+// … 省略其它代码 …
+
+
     // 获取URL参数的函数
     function getQueryParams() {
       var params = {};
@@ -170,15 +186,30 @@
     
     // 查询文章内容（使用第一个数据库实例）
     var table1 = new pgdbs(dbs_56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0);
-    table1.onGetData(function(json, id, url) {
-      if (json && json.fields && json.fields.length > 0) {
-        var firstField = json.fields[0];
-        document.querySelector('.container h1').textContent = firstField.title || '文章标题';
-        document.querySelector('.article-content').innerHTML = firstField.html || '无内容';
-      } else {
-        alert("文章查询返回无效数据：" + JSON.stringify(json));
-      }
-    });
+   
+table1.onGetData(function(json, id, url) {
+  if (json && json.fields && json.fields.length > 0) {
+    var firstField = json.fields[0];
+
+    // 取出原生 html 字段
+    var rawHtml = firstField.html || '';
+
+    // 如果它看起来像 Base64，就先解码；否则直接用
+    var finalHtml;
+    if (isBase64(rawHtml)) {
+      finalHtml = base64DecodeUnicode(rawHtml);
+    } else {
+      finalHtml = rawHtml;
+    }
+
+    // 然后把它插入页面
+    document.querySelector('.container h1').textContent = firstField.title || '文章标题';
+    document.querySelector('.article-content').innerHTML = finalHtml;
+  } else {
+    alert("文章查询返回无效数据：" + JSON.stringify(json));
+  }
+});
+
     table1.getTableData({
       page: 1,
       limit: 30,
