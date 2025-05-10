@@ -119,8 +119,8 @@ background: url('https://static.codemao.cn/pickduck/B1SDibh61g.jpeg?hash=Fogfp5v
             json.fields.forEach(item => {
                 var div = document.createElement("div");
                 div.className = "dynamic-item";
-                div.innerHTML = `<img src="${item.picture}" onclick="openWeb('${item.createdAt}')">
-                                 <p>${item.title}</p>`;
+                div.innerHTML = htmlEntityToEmoji(`<img src="${item.picture}" onclick="openWeb('https://app.qujiayingyong.online/qujia/article.html?id=${item.createdAt}')">
+                                 <p>${item.title}</p>`);
                 container.appendChild(div);
             });
         });
