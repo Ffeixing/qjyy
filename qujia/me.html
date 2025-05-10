@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -372,7 +371,39 @@
   </a>
 </div>
 
+
+  <script>
+function emojiToHtmlEntity(str) {
+  return [...str].map(char => {
+    const code = char.codePointAt(0);
+    // 判断是否是 emoji（常用 emoji 范围）
+    if (
+      (code >= 0x1F300 && code <= 0x1F6FF) || // emoji pictographs
+      (code >= 0x1F900 && code <= 0x1F9FF) || // supplemental symbols
+      (code >= 0x1FA70 && code <= 0x1FAFF) || // symbols and pictographs extended
+      (code >= 0x2600 && code <= 0x26FF) ||   // miscellaneous symbols
+      (code >= 0x2700 && code <= 0x27BF) ||   // dingbats
+      (code >= 0x1F1E6 && code <= 0x1F1FF)    // flags
+    ) {
+      return `&#${code};`;
+    } else {
+      return char;
+    }
+  }).join('');
+}
+function htmlEntityToEmoji(str) {
+  return str.replace(/&#(\d+);/g, (_, dec) => {
+    return String.fromCodePoint(parseInt(dec));
+  });
+}
+</script>
+
 <script>
+
+
+
+
+
     $(document).ready(function() {
       let userId = localStorage.getItem("userid");
 let firstImageUrl = ""; 
@@ -387,7 +418,7 @@ let firstImageUrl = "";
         if (json.fields && json.fields.length > 0) {
           let user = json.fields[0];
           $("#avatar").attr("src", user.picture || "https://static2.pgaot.com/default-avatar.png");
-          $("#username").text(user.name || "用户");
+          $("#username").text(htmlEntityToEmoji(user.name) || "用户");
         }
       });
 
@@ -403,7 +434,13 @@ let firstImageUrl = "";
         // 修改昵称
         $("#username").click(function() {
           let newName = prompt("设置昵称");
+
+
           if (newName) {
+
+newName = emojiToHtmlEntity(newName);
+alert(newName);
+
             var tablewritename = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
             let insertConfig = {
               type: "UPDATE",
@@ -509,6 +546,7 @@ var nexttablewritepicture = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc30069062
           return;
         }
 
+
         let hashedPassword = CryptoJS.MD5(passwordValue).toString();
         var table1 = new pgdbs(dbs_0e6fb026ce576a9d922d52068fc3e55a2abf9ef4ba6d5bab6791f73d80b2caa9);
         table1.onGetData((json, id, url) => {
@@ -572,8 +610,8 @@ var nexttablewritepicture = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc30069062
             json.fields.forEach(item => {
                 var div = document.createElement("div");
                 div.className = "dynamic-item";
-                div.innerHTML = `<img src="${item.picture}" onclick="openWeb('https://app.qujiayingyong.online/qujia/article.html?id=${item.createdAt}')">
-                                 <p>${item.title}</p>`;
+                div.innerHTML = htmlEntityToEmoji(`<img src="${item.picture}" onclick="openWeb('https://app.qujiayingyong.online/qujia/article.html?id=${item.createdAt}')">
+                                 <p>${item.title}</p>`);
                 container.appendChild(div);
             });
         });
@@ -753,10 +791,17 @@ $('#publishPostBtn').on('click', () => {
   
   
   // 组装 HTML：先每张图，再正文
-  let html = '';
+  let html ='';
+html += `<h6>时间：${currentTime}  发布人：${nickname}</h6>`;
+
+
+
+
+
+
   uploadedUrls.forEach(u => {
     html += `
-<h6>时间：${currentTime}  发布人：${nickname}</h6>
+
 <img src="${u}" style="width:100%">`;
   });
   const content = $('#postContent').val();
@@ -775,21 +820,29 @@ var tablenew = new pgdbs(dbs_56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e
             
 
 // 将 html 编码为 Base64，避免转义麻烦
-let htmlBase64 = btoa(unescape(encodeURIComponent(html)));
+html = encodeURIComponent(html);
+let htmlBase64 = btoa(unescape(html));
 
 let insertConfig3 = {
   type: "INSERT",
   filter: 'title,picture,html,recommend,class,userid',
-  fields: '("' + title + '","' + firstImageUrl + '","' + htmlBase64 + '","true","","' + userId + '")',
+  fields: '("' + emojiToHtmlEntity(title) + '","' + firstImageUrl + '","' + htmlBase64 + '","true","","' + userId + '")',
   id: "tablenew"
 };
 tablenew.setTableData(insertConfig3);
+alert("发布成功");
+location.reload();
 
 
 
      
 
 });
+
+
+
+
+
     </script>
 </body>
 </html>

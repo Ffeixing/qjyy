@@ -4,7 +4,41 @@
   <meta charset="UTF-8">
   <title>文章页面</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
+.comment-options {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #999;
+}
+.comment-wrapper {
+  position: relative;
+}
+
+.comment-menu {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 999;
+  display: none;
+}
+.comment-menu button {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+.comment-menu button:hover {
+  background: #eee;
+}
     /* 内联 CSS 样式 */
     body {
       font-family: Arial, sans-serif;
@@ -147,9 +181,33 @@
     <input type="text" id="commentInput" placeholder="请输入评论内容">
     <button id="sendComment">发送</button>
   </div>
-  
   <script>
-// 在 script 的最前面，先定义一个检测和解码函数
+function emojiToHtmlEntity(str) {
+  return [...str].map(char => {
+    const code = char.codePointAt(0);
+    // 判断是否是 emoji（常用 emoji 范围）
+    if (
+      (code >= 0x1F300 && code <= 0x1F6FF) || // emoji pictographs
+      (code >= 0x1F900 && code <= 0x1F9FF) || // supplemental symbols
+      (code >= 0x1FA70 && code <= 0x1FAFF) || // symbols and pictographs extended
+      (code >= 0x2600 && code <= 0x26FF) ||   // miscellaneous symbols
+      (code >= 0x2700 && code <= 0x27BF) ||   // dingbats
+      (code >= 0x1F1E6 && code <= 0x1F1FF)    // flags
+    ) {
+      return `&#${code};`;
+    } else {
+      return char;
+    }
+  }).join('');
+}
+function htmlEntityToEmoji(str) {
+  return str.replace(/&#(\d+);/g, (_, dec) => {
+    return String.fromCodePoint(parseInt(dec));
+  });
+}
+</script>
+  <script>
+// 定义检测和解码
 function isBase64(str) {
   if (!str || typeof str !== 'string') return false;
   if (str.length % 4 !== 0) return false;
@@ -162,7 +220,7 @@ function base64DecodeUnicode(str) {
   return decodeURIComponent(escape(atob(str)));
 }
 
-// … 省略其它代码 …
+
 
 
     // 获取URL参数的函数
@@ -203,8 +261,8 @@ table1.onGetData(function(json, id, url) {
     }
 
     // 然后把它插入页面
-    document.querySelector('.container h1').textContent = firstField.title || '文章标题';
-    document.querySelector('.article-content').innerHTML = finalHtml;
+    document.querySelector('.container h1').textContent = htmlEntityToEmoji(firstField.title) || '文章标题';
+    document.querySelector('.article-content').innerHTML = htmlEntityToEmoji(finalHtml);
   } else {
     alert("文章查询返回无效数据：" + JSON.stringify(json));
   }
@@ -231,16 +289,28 @@ table1.onGetData(function(json, id, url) {
       var commentsHtml = "";
       if (json && json.fields && json.fields.length > 0) {
         json.fields.forEach(function(item) {
-          commentsHtml += '<div class="comment">';
-          commentsHtml += '<img src="' + item.picture + '" alt="头像" class="comment-avatar">';
-          commentsHtml += '<div class="comment-content">';
-          commentsHtml += '<div class="comment-header">';
-          commentsHtml += '<span class="comment-name">' + item.name + '</span>';
-          commentsHtml += '<span class="comment-time">' + item.time + '</span>';
-          commentsHtml += '</div>';
-          commentsHtml += '<div class="comment-text">' + item.thing + '</div>';
-          commentsHtml += '</div></div>';
-        });
+  commentsHtml += htmlEntityToEmoji('<div class="comment-wrapper">');
+  commentsHtml += htmlEntityToEmoji('<div class="comment">');
+  commentsHtml += '<img src="' + item.picture + '" alt="头像" class="comment-avatar">';
+  commentsHtml += htmlEntityToEmoji('<div class="comment-content">');
+  commentsHtml += htmlEntityToEmoji('<div class="comment-header">');
+  commentsHtml += htmlEntityToEmoji('<span class="comment-name">' + item.name + '</span>');
+  commentsHtml += htmlEntityToEmoji('<span class="comment-time">' + item.time + '</span>');
+  commentsHtml += htmlEntityToEmoji('</div>');
+  commentsHtml += htmlEntityToEmoji('<div class="comment-text">' + item.thing + '</div>');
+  commentsHtml += htmlEntityToEmoji('</div>');
+  commentsHtml += htmlEntityToEmoji('</div>'); // 结束 .comment
+
+  // 如果是当前用户的评论，则加上三个点按钮和菜单
+
+
+  if (Number(item.userid) === Number(userId)) {
+    commentsHtml += '<div class="comment-options" onclick="showMenu(this)">⋮</div>';
+    commentsHtml += '<div class="comment-menu"><button onclick="deleteComment(\'' + item.createdAt + '\')">删除评论</button></div>';
+  }
+
+  commentsHtml += '</div>'; // 结束 .comment-wrapper
+});
       } else {
         commentsHtml = '暂无评论';
       }
@@ -278,7 +348,13 @@ table1.onGetData(function(json, id, url) {
         alert("请输入评论内容");
         return;
       }
+
       var currentTime = new Date().toLocaleString();
+
+commentContent = commentContent.replace(/"/g, '&quot;'); // 转义引号
+commentContent=emojiToHtmlEntity(commentContent);
+
+
       var tableInsert = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
       var insertConfig = {
         type: "INSERT",
@@ -347,6 +423,45 @@ tableInsert.setTableData(insertConfig);
   previewImg.addEventListener("touchend", function(e) {
     scale = parseFloat(previewImg.style.transform.replace("scale(", "").replace(")", "")) || 1;
   });
+
+function showMenu(button) {
+  // 隐藏其他菜单
+  document.querySelectorAll('.comment-menu').forEach(function(menu) {
+    menu.style.display = 'none';
+  });
+
+  // 显示当前评论的菜单
+  var menu = button.nextElementSibling;
+  if (menu) {
+    menu.style.display = 'block';
+  }
+
+  // 点击空白处自动关闭
+  document.addEventListener('click', function closeMenu(e) {
+    if (!menu.contains(e.target) && e.target !== button) {
+      menu.style.display = 'none';
+      document.removeEventListener('click', closeMenu);
+    }
+  });
+}
+
+function deleteComment(createdAt) {
+  if (!confirm('确定要删除这条评论吗？')) return;
+alert("删除成功")
+
+  var deleteTable1 = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
+  
+deleteTable1.setTableDataDelete({
+    filter: 'createdAt="' + createdAt + '"',
+	 id: 'delete1'
+  });
+
+document.getElementById('commentInput').value = "";
+      // 延时刷新评论区，等待数据写入
+      setTimeout(loadComments, 1000);
+      
+  
+}
 </script>
 </body>
 </html>

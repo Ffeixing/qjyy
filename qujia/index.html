@@ -15,8 +15,33 @@
     <script src="//shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0.js"></script> <!-- 查询HTML的资源库 -->
     <script src="//static2.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script> <!-- 签名 -->
 
+<script>
+function emojiToHtmlEntity(str) {
+  return [...str].map(char => {
+    const code = char.codePointAt(0);
+    // 判断是否是 emoji（常用 emoji 范围）
+    if (
+      (code >= 0x1F300 && code <= 0x1F6FF) || // emoji pictographs
+      (code >= 0x1F900 && code <= 0x1F9FF) || // supplemental symbols
+      (code >= 0x1FA70 && code <= 0x1FAFF) || // symbols and pictographs extended
+      (code >= 0x2600 && code <= 0x26FF) ||   // miscellaneous symbols
+      (code >= 0x2700 && code <= 0x27BF) ||   // dingbats
+      (code >= 0x1F1E6 && code <= 0x1F1FF)    // flags
+    ) {
+      return `&#${code};`;
+    } else {
+      return char;
+    }
+  }).join('');
+}
+function htmlEntityToEmoji(str) {
+  return str.replace(/&#(\d+);/g, (_, dec) => {
+    return String.fromCodePoint(parseInt(dec));
+  });
+}
+</script>
     <style>
-        #dynamic-square .dynamic-item p {
+#dynamic-square .dynamic-item p {
   text-align: left;
   margin: 5px 0 0;
   padding: 0 5px;
@@ -200,8 +225,8 @@
             json.fields.forEach(item => {
                 var div = document.createElement("div");
                 div.className = "dynamic-item";
-                div.innerHTML = `<img src="${item.picture}" onclick="openWeb('https://app.qujiayingyong.online/qujia/article.html?id=${item.createdAt}')">
-                                 <p>${item.title}</p>`;
+                div.innerHTML = htmlEntityToEmoji(`<img src="${item.picture}" onclick="openWeb('https://app.qujiayingyong.online/qujia/article.html?id=${item.createdAt}')">
+                                 <p>${item.title}</p>`);
                 container.appendChild(div);
             });
         });
