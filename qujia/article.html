@@ -506,7 +506,7 @@ function showMenu(button) {
 
 function deleteComment(createdAt) {
   if (!confirm('确定要删除这条评论吗？')) return;
-alert("删除成功")
+alert("删除成功");
 
   var deleteTable1 = new pgdbs(dbs_56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0);
   
@@ -533,7 +533,7 @@ document.getElementById('commentInput').value = "";
 function deleteArticle() {
   //alert("要删除的文章 ID 是：" + articleId);
   if (!confirm('确定要删除这篇文章吗？')) return;
-alert("删除成功")
+
 
   var deleteTable2 = new pgdbs(dbs_56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0);
   
@@ -541,12 +541,15 @@ deleteTable2.setTableDataDelete({
     filter: 'createdAt="' + articleId + '"',
 	 id: 'delete2'
   });
-window.history.back();
-// 延时等待数据写入
-      setTimeout(loadComments, 1000);
-
-
+alert("删除成功");
 }
+
+
+deleteTable2.onGetData((json) =>{
+alert(JSON.stringify(json));
+window.history.back();
+    
+});
 
 
 document.addEventListener('click', function() {
