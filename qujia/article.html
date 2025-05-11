@@ -6,6 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+.article-options {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  font-size: 20px;
+  cursor: pointer;
+  color: #999;
+}
+.article-menu {
+  position: absolute;
+  top: 25px;
+  right: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 999;
+  display: none;
+}
+.article-menu button {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+.article-menu button:hover {
+  background: #eee;
+}
 .comment-options {
   position: absolute;
   right: 10px;
@@ -262,6 +291,36 @@ table1.onGetData(function(json, id, url) {
 
     // 然后把它插入页面
     document.querySelector('.container h1').textContent = htmlEntityToEmoji(firstField.title) || '文章标题';
+// 判断当前用户是否是作者
+if (Number(firstField.userid) === Number(userId)) {
+  var h1 = document.querySelector('.container h1');
+  var optionsDiv = document.createElement('div');
+  optionsDiv.className = 'article-options';
+  optionsDiv.textContent = '⋮';
+  optionsDiv.onclick = function(e) {
+    e.stopPropagation();
+    document.querySelector('.article-menu').style.display = 'block';
+  };
+
+  var menuDiv = document.createElement('div');
+  menuDiv.className = 'article-menu';
+  menuDiv.innerHTML = '<button onclick="deleteArticle()">删除文章</button>';
+
+  // 容器是相对定位
+  var wrapper = document.createElement('div');
+  wrapper.style.position = 'relative';
+  wrapper.appendChild(h1.cloneNode(true));
+  wrapper.appendChild(optionsDiv);
+  wrapper.appendChild(menuDiv);
+
+  // 替换原 h1
+  h1.parentNode.replaceChild(wrapper, h1);
+}
+
+
+
+
+
     document.querySelector('.article-content').innerHTML = htmlEntityToEmoji(finalHtml);
   } else {
     alert("文章查询返回无效数据：" + JSON.stringify(json));
@@ -449,7 +508,7 @@ function deleteComment(createdAt) {
   if (!confirm('确定要删除这条评论吗？')) return;
 alert("删除成功")
 
-  var deleteTable1 = new pgdbs(dbs_6d4470deee6cee4a19c69524a769bc300690620472b9110ed4f427d285b1ac76);
+  var deleteTable1 = new pgdbs(dbs_56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0);
   
 deleteTable1.setTableDataDelete({
     filter: 'createdAt="' + createdAt + '"',
@@ -459,9 +518,43 @@ deleteTable1.setTableDataDelete({
 document.getElementById('commentInput').value = "";
       // 延时刷新评论区，等待数据写入
       setTimeout(loadComments, 1000);
+
+
+
+
+
       
   
 }
+
+
+
+
+function deleteArticle() {
+  //alert("要删除的文章 ID 是：" + articleId);
+  if (!confirm('确定要删除这篇文章吗？')) return;
+alert("删除成功")
+
+  var deleteTable2 = new pgdbs(dbs_56a041f93f025090f8ee06c5f53bf3e77c212ffbb76b1d2434e8b029f91825b0);
+  
+deleteTable2.setTableDataDelete({
+    filter: 'createdAt="' + articleId + '"',
+	 id: 'delete2'
+  });
+window.history.back();
+// 延时等待数据写入
+      setTimeout(loadComments, 1000);
+
+
+}
+
+
+document.addEventListener('click', function() {
+  var menu = document.querySelector('.article-menu');
+  if (menu) menu.style.display = 'none';
+});
+
+
 </script>
 </body>
 </html>
