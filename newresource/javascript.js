@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 添加迅雷下载按钮
             const downloadButton = document.createElement('a');
             downloadButton.href = 'https://pan.xunlei.com/s/VOHLbqhS0fCwSSUSS8zAOYWKA1?pwd=xaj3';
-            downloadButton.textContent = '迅雷下载';
+            //downloadButton.textContent = '迅雷下载';
             downloadButton.target = '_blank'; // 在新标签页中打开
             resourceBox.appendChild(downloadButton);
             // 添加图片
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
              // 添加迅雷下载按钮
              const downloadButton = document.createElement('a');
              downloadButton.href = 'https://pan.xunlei.com/s/VOHLbqhS0fCwSSUSS8zAOYWKA1?pwd=xaj3';
-             downloadButton.textContent = ' （🔥备用迅雷）';
+             //downloadButton.textContent = ' （🔥备用迅雷）';
              downloadButton.target = '_blank'; // 在新标签页中打开
              resourceBox.appendChild(downloadButton);
      
