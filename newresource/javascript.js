@@ -163,6 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
      
              const resourceLink = document.createElement('a');
              resourceLink.href = resource.url;
+             resourceLink.target = '_blank'; //new 在新标签页中打开
              resourceLink.textContent = '✔️打开';
              resourceBox.appendChild(resourceLink);
      
