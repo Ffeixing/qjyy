@@ -218,7 +218,8 @@ document.addEventListener('DOMContentLoaded', function() {
             resourceTitle.textContent = resource.title;
             const resourceLink = document.createElement('a');
             resourceLink.href = resource.url;
-            resourceLink.textContent = '打开';
+            resourceLink.textContent = '✔️打开';
+            resourceLink.target = '_blank'; //new 在新标签页中打开
             const resourceLink2 = document.createElement('a');
             
 
